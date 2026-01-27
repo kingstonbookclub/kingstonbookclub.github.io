@@ -1,0 +1,13 @@
+# Upcoming Events (4 cards)
+events:
+  - date: "JAN 24, 2026"
+    description: "Short-form reads"
+  
+  - date: "JAN 31, 2026"
+    description: "Chapters 5 & 6"
+  
+  - date: "FEB 7, 2026"
+    description: "Chapters 7 & 8"
+  
+  - date: "FEB 14, 2026"
+    description: "Chapters 9 & 10"
