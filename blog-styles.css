@@ -1,0 +1,318 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    background-color: #FEFEFC;
+    color: #333333;
+    line-height: 1.75;
+    position: relative;
+    min-height: 100vh;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* FILM GRAIN TEXTURE */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.08;
+    background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.05) 2px, rgba(0,0,0,.05) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.05) 2px, rgba(0,0,0,.05) 4px);
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.15;
+    background: 
+        radial-gradient(circle, transparent 20%, rgba(0,0,0,.015) 20%, rgba(0,0,0,.015) 80%, transparent 80%, transparent),
+        radial-gradient(circle, transparent 20%, rgba(0,0,0,.015) 20%, rgba(0,0,0,.015) 80%, transparent 80%, transparent) 25px 25px,
+        linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px) 0 -25px,
+        linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px) -25px 0;
+    background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+    animation: grain 8s steps(10) infinite;
+}
+
+@keyframes grain {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-5%, -10%); }
+    20% { transform: translate(-15%, 5%); }
+    30% { transform: translate(7%, -25%); }
+    40% { transform: translate(-5%, 25%); }
+    50% { transform: translate(-15%, 10%); }
+    60% { transform: translate(15%, 0%); }
+    70% { transform: translate(0%, 15%); }
+    80% { transform: translate(3%, 25%); }
+    90% { transform: translate(-10%, 10%); }
+}
+
+.noise {
+    background: #FFFFFF;
+    background-image: url(assets/noise.svg);
+}
+
+/* Navigation Bar */
+.navbar {
+    width: 100%;
+    background-color: #E4E4E4;
+    margin-bottom: 60px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0);
+}
+
+.nav-content {
+    display: flex;
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-link {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333333;
+    text-decoration: none;
+    padding: 20px 30px;
+    display: block;
+    transition: opacity 0.3s;
+}
+
+.nav-link:hover {
+    opacity: 0.7;
+}
+
+.nav-link.active {
+    background-color: #333333;
+    color: #E4E4E4;
+}
+
+/* Blog Posts Section */
+.blog-posts {
+    width: 100%;
+    padding: 0 40px 60px 40px;
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.blog-posts-content {
+    width: 100%;
+    max-width: 900px;
+}
+
+.blog-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 55px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 50px;
+    line-height: 1.1;
+    text-align: left;
+}
+
+.blog-description {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 19px;
+    line-height: 1.9;
+    margin-bottom: 50px;
+    text-align: left;
+}
+
+.blog-list {
+    margin-top: 40px;
+}
+
+.blog-year-toggle {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 16px;
+    font-weight: 400;
+    color: #666666;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #333333;
+    cursor: pointer;
+    padding: 0 0 15px 0;
+    margin: 40px 0 25px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    transition: opacity 0.3s;
+}
+
+.blog-year-toggle:hover {
+    opacity: 0.7;
+}
+
+.blog-year-toggle:first-child {
+    margin-top: 0;
+}
+
+.year-text {
+    flex: 1;
+    text-align: left;
+}
+
+.year-icon {
+    font-size: 20px;
+    font-weight: 400;
+    transition: transform 0.3s;
+}
+
+.blog-year-toggle.collapsed .year-icon {
+    transform: rotate(0deg);
+}
+
+.blog-year-content {
+    margin-bottom: 20px;
+    max-height: 2000px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+    opacity: 1;
+}
+
+.blog-year-content.collapsed {
+    max-height: 0;
+    margin-bottom: 0;
+    opacity: 0;
+}
+
+.blog-item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.blog-icon {
+    font-size: 14px;
+    color: #333333;
+    flex-shrink: 0;
+}
+
+.blog-link {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 18px;
+    font-weight: 700;
+	border-bottom: 1px dotted #333333;
+	padding-bottom: 0px;
+	align-items: baseline;
+    color: #333333;
+    text-decoration: none;
+    transition: opacity 0.3s;
+    flex: 1;
+}
+
+.blog-link:hover {
+    opacity: 0.6;
+}
+
+.blog-date {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 16px;
+    color: #666666;
+    flex-shrink: 0;
+}
+
+/* Footer */
+.footer {
+    width: 100%;
+    padding: 40px;
+    background-color: #E4E4E4;
+    margin-top: auto;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0);
+}
+
+.footer-text {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 14px;
+    color: #333333;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .blog-posts {
+        padding: 0 30px 60px 30px;
+    }
+
+    .blog-title {
+        font-size: 42px;
+        margin-bottom: 60px;
+    }
+
+    .blog-description {
+        font-size: 17px;
+    }
+
+    .blog-link {
+        font-size: 17px;
+    }
+
+    .blog-date {
+        font-size: 15px;
+    }
+
+    .footer {
+        padding: 35px;
+    }
+
+    .footer-text {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-posts {
+        padding: 0 20px 40px 20px;
+    }
+
+    .blog-title {
+        font-size: 32px;
+    }
+
+    .blog-description {
+        font-size: 16px;
+        margin-bottom: 40px;
+    }
+
+    .blog-item {
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .blog-link {
+        font-size: 16px;
+    }
+
+    .blog-date {
+        font-size: 14px;
+    }
+
+    .footer {
+        padding: 30px;
+    }
+
+    .footer-text {
+        font-size: 12px;
+    }
+}

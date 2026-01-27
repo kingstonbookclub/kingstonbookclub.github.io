@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kingston Book Club</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="noise">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="nav-link active">HOME</a>
+            <a href="blog.html" class="nav-link">BLOG</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">KINGSTON BOOK CLUB</h1>
+            
+            <p class="hero-text">
+                We are a book club based in Kingston, Jamaica that focuses on reading texts that challenge us and expand our perspectives. We see knowledge as a good in and of itself. Our primary focus is on building and maintaining a community of interesting people by connecting them with fresh ideas.
+            </p>
+
+            <div class="quote-box">
+                <span class="quote-mark">"</span>
+                <p class="quote-text">
+                    Seek ye first the good things of the mind and the rest will either be supplied or its loss will not be felt."
+                </p>
+                <p class="quote-author">~ Francis Bacon</p>
+            </div>
+
+            <p class="hero-text">
+                We meet every Saturday at 10 AM within the city. Our meeting spots can vary depending on the week - from a cafe to a park. We confirm the location within our WhatsApp group chat ahead of the meeting.
+            </p>
+        </div>
+    </section>
+
+    <!-- Current Reading Section -->
+    <section class="current-reading">
+        <div class="current-reading-content">
+            <h2 class="section-title">Our Current Reading</h2>
+            
+            <p class="reading-intro">
+                The book that we have selected to read is <strong>The Righteous Mind: Why Good People Are Divided by Politics and Religion</strong> by Jonathan Haidt. We will be reading Chapters 3 & 4 ahead of our second meeting on Saturday, January 17th.
+            </p>
+
+            <div class="book-cover-container">
+                <img src="images/book.jpg" alt="The Righteous Mind book cover" class="book-cover">
+            </div>
+
+            <p class="reading-note">
+                While reading this book we encountered the following quote which feels like it was targeted at our membership.
+            </p>
+
+            <div class="book-quote-box">
+                <span class="book-quote-mark">"</span>
+                <p class="book-quote-text">
+                    ...if you put individuals together in the right way, such that some individuals can use their reasoning powers to disconfirm the claims of others, and all individuals feel some common bond or shared fate that allows them to interact civilly, you can create a group that ends up producing good reasoning as an emergent property of the social system. This is why it's so important to have intellectual and ideological diversity within any group or institution whose goal is to find truth..."
+                </p>
+            </div>
+
+            <div class="book-links">
+                <a href="https://www.goodreads.com/book/show/11324722-the-righteous-mind" target="_blank" class="book-link"><span>View on Goodreads</span></a>
+                <a href="https://www.amazon.com/Righteous-Mind-Divided-Politics-Religion/dp/0307455777" target="_blank" class="book-link"><span>Buy on Amazon</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Short Reading Section -->
+    <section class="short-reading" id="shortReading">
+        <div class="short-reading-content">
+            <h2 class="section-title">This Week's Short Reading</h2>
+            
+            <p class="reading-intro">
+                This week we're taking a break from our main book to read short articles/essays. Please read the following before Saturday's meeting:
+            </p>
+
+            <div class="article-links">
+                <a href="https://nautil.us/how-the-occult-gave-birth-to-science-1041122/" target="_blank" class="article-link"><span>How the Occult Gave Birth to Science</span></a>
+                <a href="https://www.experimental-history.com/p/science-is-a-strong-link-problem" target="_blank" class="article-link"><span>Science is a strong-link problem</span></a>
+                <a href="https://www.nytimes.com/2006/08/20/sports/playmagazine/20federer.html" target="_blank" class="article-link"><span>Roger Federer as Religious Experience</span></a>
+            </div>
+        </div>
+    </section>
+	
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="gallery-content">
+            <h2 class="section-title">Gallery</h2>
+            
+            <div class="gallery-wrapper">
+                <div class="gallery-container">
+                    <div class="gallery-image-wrapper">
+                        <img src="images/meeting-4.jpeg" alt="Kingston Book Club members" class="gallery-image">
+                    </div>
+                    
+                    <p class="gallery-caption">
+                        Shout out to the super smart and awesome people who make this the coolest club to meet on Saturdays at 10
+                    </p>
+                </div>
+                
+                <div class="gallery-nav">
+                    <button class="gallery-nav-btn" onclick="previousImage()" aria-label="Previous image">←</button>
+                    <button class="gallery-nav-btn" onclick="nextImage()" aria-label="Next image">→</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Events Section -->
+    <section class="upcoming-events">
+        <div class="upcoming-events-content">
+            <h2 class="section-title">Upcoming Events</h2>
+
+            <div class="calendar-container">
+                <div class="events-grid">
+                    <div class="event-card">
+                        <div class="event-date">JAN 24, 2026</div>
+                        <div class="event-description">Short-form reads</div>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-date">JAN 31, 2026</div>
+                        <div class="event-description">The Righteous Mind meeting #3 (half-way point), chapters 5 & 6</div>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-date">FEB 7, 2026</div>
+                        <div class="event-description">The Righteous Mind meeting #4, chapters 7&8</div>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-date">FEB 14, 2026</div>
+                        <div class="event-description">The Righteous Mind meeting #5, chapters 9 & 10, voting results for next read</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Previous Meetings Section -->
+    <section class="previous-meetings">
+        <div class="previous-meetings-content">
+            <h2 class="section-title">Previous Meetings</h2>
+
+            <div class="timeline">
+                <div class="timeline-year">2026</div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">JAN 3</div>
+                    <div class="timeline-connector"></div>
+                    <a href="blog.html" class="timeline-link">
+                        <span>The Righteous Mind meeting #1, first meeting</span>
+                    </a>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">JAN 10</div>
+                    <div class="timeline-connector"></div>
+                    <a href="blog.html" class="timeline-link">
+                        <span>The Righteous Mind meeting #2, chapters 1 & 2</span>
+                    </a>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">JAN 14</div>
+                    <div class="timeline-connector"></div>
+                    <a href="blog.html" class="timeline-link">
+                        <span>Short-form reads discussion, announcement for next chapters</span>
+                    </a>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">JAN 17</div>
+                    <div class="timeline-connector"></div>
+                    <a href="blog.html" class="timeline-link">
+                        <span>The Righteous Mind meeting #3, chapters 3 & 4</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Purpose/Mission Section -->
+    <section class="purpose">
+        <div class="purpose-content">
+            <h2 class="section-title">Purpose/Mission/Why we're doing this</h2>
+            
+            <p class="purpose-text">
+                There's a downright scarcity of spaces in Kingston (maybe Jamaica overall) that select for and encourage bright, curious, and interesting people to indulge in the kind of stimulating activities that are meaningfully enriching to them.
+            </p>
+
+            <p class="purpose-text">
+                Kingston Book Club serves to fill that gap. Being more ambitious, we want to do that and provide the kind of space that enables people to grow and be challenged and find other people that are into that kind of thing too.
+            </p>
+
+            <p class="purpose-text">
+                Expanding on that even more, we want to push people to Think, while also not holding any ideas too close to their chest. We are building whatever the opposite of a monolith of thought is. Think of this as some cerebral run club. Whatever the dorky analog to a 5k is, we do that every week so you can hit some intellectual goals, and then more.
+            </p>
+        </div>
+    </section>
+
+    <!-- Membership Guidelines Section -->
+    <section class="membership">
+        <div class="membership-content">
+            <h2 class="section-title">Membership Guidelines and How to Register</h2>
+            
+            <p class="membership-intro">We have the following guidelines for membership:</p>
+
+            <ol class="membership-list">
+                <li>You are above the age of 18.</li>
+                <li>You are willing and able to read the selected text and keep in step with the group's progress.</li>
+                <li>You can maintain responsible and civic conduct. Also that you're kind and respectful. This is non-negotiable.</li>
+                <li>You're able to accept that perspectives can vary and are willing to handle that in a productive manner. This one is huge because we'll inevitably have debates.</li>
+                <li>(Nice to have) You are able to purchase the selected text. This can look like an expense of maybe ~$12 USD or ~$2000 JMD per book.</li>
+                <li>You are able to attend our meetings on a regular basis. They are held weekly, but we do permit some lenience for extenuating circumstances. Building the habit and community is really important though.</li>
+            </ol>
+
+            <p class="membership-outro">
+                If you meet the above criteria and would like to register for the group chat you can complete the following form:
+            </p>
+
+            <a href="#" class="registration-link"><span>Registration form</span></a>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="articles">
+        <div class="articles-content">
+            <h2 class="section-title">Articles</h2>
+			
+            <article class="article-post">
+                <h3 class="article-title"><a href="blog.html">Meeting Re-cap: Saturday, January 10th, 2026</a></h3>
+                <p class="article-date">Friday, January 23, 2026.</p>
+                <div class="article-body">
+                    <p>This was our first meeting. We introduced concepts such as "the ball", established clear rules of engagement, and had a fun icebreaker prepared by Kimberly. Our discussion was based on the first 2 chapters of The Righteous Mind by Jonathan Haidt.</p>
+                </div>
+                <a href="blog.html" class="article-view-link"><span>View Full Article</span></a>
+            </article>
+
+            <article class="article-post">
+                <h3 class="article-title"><a href="blog.html">Meeting Re-cap: Saturday, January 17th, 2026</a></h3>
+                <p class="article-date">Friday, January 23, 2026.</p>
+                <div class="article-body">
+                    <p>Our second meeting covered Chapters 3 & 4 of The Righteous Mind. Kimberly prepared a fun icebreaker with balloons. We discovered some members were put off by popping them - lesson learned for future activities.</p>
+                </div>
+                <a href="blog.html" class="article-view-link"><span>View Full Article</span></a>
+            </article>
+
+            <article class="article-post">
+                <h3 class="article-title"><a href="blog.html">Meeting Re-cap: Saturday, January 24th, 2026</a></h3>
+                <p class="article-date">Friday, January 30, 2026.</p>
+                <div class="article-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor.</p>
+                </div>
+                <a href="blog.html" class="article-view-link"><span>View Full Article</span></a>
+            </article>
+
+            <article class="article-post">
+                <h3 class="article-title"><a href="blog.html">Meeting Re-cap: Saturday, January 31st, 2026</a></h3>
+                <p class="article-date">Friday, February 6, 2026.</p>
+                <div class="article-body">
+                    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed quia non numquam eius modi tempora incidunt.</p>
+                </div>
+                <a href="blog.html" class="article-view-link"><span>View Full Article</span></a>
+            </article>
+
+            <article class="article-post">
+                <h3 class="article-title"><a href="blog.html">Meeting Re-cap: Saturday, February 7th, 2026</a></h3>
+                <p class="article-date">Friday, February 13, 2026.</p>
+                <div class="article-body">
+                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident similique sunt in culpa qui officia deserunt mollitia animi id est laborum et dolorum fuga.</p>
+                </div>
+                <a href="blog.html" class="article-view-link"><span>View Full Article</span></a>
+            </article>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="faq-content">
+            <h2 class="section-title">FAQ</h2>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span class="faq-icon">+</span>
+                    <span>Who is an ideal member for this club?</span>
+                </button>
+                <div class="faq-answer">
+                    <ul class="faq-list">
+                        <li>Smart.</li>
+                        <li>Interesting.</li>
+                        <li>Brimming with agency.</li>
+                        <li>Open to update on their beliefs once presented with strong evidence.</li>
+                        <li>Humble enough to recognize that there is a whole universe of knowledge that they'll never come close to scratching the surface of.</li>
+                        <li>Persistent and stubborn enough to make an attempt to anyway.</li>
+                    </ul>
+                    <p class="faq-text">
+                        The above set of bullet points wasn't determined <em>a priori</em>. Meaning, it isn't prescriptive. It describes what the modal member looks like currently. It's our job, collectively, to preserve that ideal going forward.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span class="faq-icon">+</span>
+                    <span>What does a typical meeting look like?</span>
+                </button>
+                <div class="faq-answer">
+                    <p class="faq-text">
+                        Our meetings are 2 hours in length and start on-time. We usually reserve the first 20-30 minutes for an icebreaker or mental warm-up that serves the purpose of getting new members acquainted with existing ones and also just getting everyone into a good mood.
+                    </p>
+                    <p class="faq-text">
+                        We follow this up with 1 or 2 pre-selected prompts from earlier within the week. This can occupy anywhere from 20-40 minutes depending on the number of debaters. It's really important that everyone is attentive and we do select a winner based on who most effectively sways the audience to their POV. It's fun!
+                    </p>
+                    <p class="faq-text">
+                        The main block of the meeting is dedicated to open-ended discussion questions - usually 2 or 3. This will look like the moderator dishing out a thought-provoking prompt to the members and then the point being discussed. We try to keep the conversation flowing and it's really important that we give the floor to whoever has <em>the ball</em>.
+                    </p>
+                    <p class="faq-text">
+                        Finally, the last 20-30 minutes of our meetings is reserved for socializing and taking group photos. Don't leave right after the discussions are over! At this point we might also have some refreshments that other members have brought.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span class="faq-icon">+</span>
+                    <span>What's the ball?</span>
+                </button>
+                <div class="faq-answer">
+                    <p class="faq-text">
+                        The ball is sacrosanct. It's how we recognize the main speaker at a given point in time and we <em>always</em> defer and listen to the holder of the ball. This ensures that everyone can get their point out. The ball holds great power in a meeting so its use demands responsibility - no hogging please. The ball might come in a variety of forms and textures - smooth, round, oblong, spiky. The ball represents order within our meetings.
+                    </p>
+                    <p class="faq-text">
+                        The ball also <span id="squeaks" class="squeak-word">squeaks</span>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span class="faq-icon">+</span>
+                    <span>Will you be live-streaming the meetings or can they be held online?</span>
+                </button>
+                <div class="faq-answer">
+                    <p class="faq-text">
+                        No. Online meetings typically devolve into muted mics and cameras turned off with maybe a narrow selection of people actually engaging. The main aim of this club is community so we'll keep it face-to-face. Also, in-person is more soulful.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span class="faq-icon">+</span>
+                    <span>Can I join if I'm not in Kingston?</span>
+                </button>
+                <div class="faq-answer">
+                    <p class="faq-text">
+                        I'd encourage you to follow our social media instead where you can read along with us. The WhatsApp group is intended for those who can attend.
+                    </p>
+                    <p class="faq-text">
+                        <a href="https://www.instagram.com/kgnbookclub" target="_blank" class="faq-link"><span>Instagram</span></a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span class="faq-icon">+</span>
+                    <span>What if I can't make it every Saturday?</span>
+                </button>
+                <div class="faq-answer">
+                    <p class="faq-text">
+                        That's completely fine. We will keep you updated on our progress on whichever text is being read so you can read along with us. It is required that you have read the particular sections up for discussion to participate in our meetings though. It's also expected that you will be able to attend at some regular cadence. If you haven't made it to a meeting in 2 months for instance then this would be counter to the idea of membership.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+	
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">© 2026 KBC ALL Rights Reserved</p>
+    </footer>
+	
+    <script src="script.js"></script>
+</body>
+</html>
