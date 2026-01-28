@@ -315,4 +315,83 @@ body::after {
     .footer-text {
         font-size: 12px;
     }
+
+}
+
+/* Blog Post Page Styles */
+.blog-post {
+    width: 100%;
+    padding: 0 40px 60px 40px;
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.blog-post-content {
+    width: 100%;
+    max-width: 900px;
+}
+
+.blog-post-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.blog-post-date {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 16px;
+    color: #666666;
+    margin-bottom: 40px;
+}
+
+.blog-post-body {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 19px;
+    line-height: 1.9;
+}
+
+.blog-post-body h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 40px 0 20px 0;
+}
+
+.blog-post-body p {
+    margin-bottom: 25px;
+}
+
+.blog-post-body p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .blog-post {
+        padding: 0 30px 60px 30px;
+    }
+
+    .blog-post-title {
+        font-size: 36px;
+    }
+
+    .blog-post-body {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-post {
+        padding: 0 20px 40px 20px;
+    }
+
+    .blog-post-title {
+        font-size: 28px;
+    }
+
+    .blog-post-body {
+        font-size: 16px;
+    }
 }
