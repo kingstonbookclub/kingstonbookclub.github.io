@@ -1,0 +1,64 @@
+# Gallery Images
+# Add or remove images from this list
+
+images:
+  - path: "/images/IMG_2051.jpeg"
+    alt: "Book club meeting 1"
+    caption: "first meeting. blah blaah."
+  
+  - path: "/images/DSC_0387.jpg"
+    alt: "Book club meeting 2"
+    caption: "Second meeting discussing Chapters 3 & 4."
+  
+  - path: "/images/DSC_0385.jpg"
+    alt: "Book club meeting 3"
+    caption: "Great discussion today about ideological diversity and reasoning."
+  
+  - path: "/images/DSC_0415.jpg"
+    alt: "Book club meeting 4"
+    caption: "Shout out to the super smart and awesome people."
+
+  - path: "/images/DSC_0418.jpg"
+    alt: "Book club meeting 5"
+    caption: "this the coolest club to meet."
+
+  - path: "/images/DSC_0417.jpg"
+    alt: "Book club meeting 1"
+    caption: ""
+  
+  - path: "/images/DSC_0441.jpg"
+    alt: "Book club meeting 2"
+    caption: "Second meeting discussing Chapters 3 & 4."
+  
+  - path: "/images/DSC_0435.jpg"
+    alt: "Book club meeting 3"
+    caption: "Great discussion today about ideological diversity and reasoning."
+  
+  - path: "/images/DSC_0425.jpg"
+    alt: "Book club meeting 4"
+    caption: "Shout out to the super smart and awesome people."
+
+  - path: "/images/DSC_0423.jpg"
+    alt: "Book club meeting 5"
+    caption: "this the coolest club to meet."
+
+  - path: "/images/DSC_0412.jpg"
+    alt: "Book club meeting 1"
+    caption: "first meeting. blah blaah."
+  
+  - path: "/images/DSC_0397.jpg"
+    alt: "Book club meeting 2"
+    caption: "Second meeting discussing Chapters 3 & 4."
+  
+  - path: "/images/DSC_0408.jpg"
+    alt: "Book club meeting 3"
+    caption: "Great discussion today about ideological diversity and reasoning."
+  
+  - path: "/images/IMG_2043.jpeg"
+    alt: "Book club meeting 4"
+    caption: "Shout out to the super smart and awesome people."
+
+  - path: "/images/IMG_2044.jpeg"
+    alt: "Book club meeting 5"
+    caption: "this the coolest club to meet."
+    

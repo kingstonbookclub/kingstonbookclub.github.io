@@ -1,0 +1,22 @@
+# Previous Meetings
+# Keep only the 4 most recent meetings
+# Leave blog_url an empty string if no blog post exists
+
+year: 2026
+
+meetings:
+  - date: "JAN 17"
+    title: "The Righteous Mind meeting #2, chapters 3 & 4"
+    blog_url: "" 
+  
+  - date: "JAN 10"
+    title: "The Righteous Mind meeting #1, first meeting"
+    blog_url: "/blog/2026/01/10/meeting-recap-jan-10"
+  
+  - date: "JAN 3"
+    title: "Short form reads discussion, announcement for next chapter"
+    blog_url: ""
+  
+  - date: "DEC 15"
+    title: "First Meeting Announcement"
+    blog_url: "/blog/2025/12/15/first-meeting-announcement"

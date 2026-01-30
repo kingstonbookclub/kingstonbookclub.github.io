@@ -1,0 +1,7 @@
+# Site settings
+title: Kingston Book Club
+url: "https://kingstonbookclub"
+baseurl: "/kingstonbookclub.github.io"
+
+# Build settings
+markdown: kramdown

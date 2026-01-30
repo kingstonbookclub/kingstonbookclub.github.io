@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - Kingston Book Club</title>
+    <link rel="icon" type="image/png" href="{{ site.baseurl }}/images/favicon.png">
+    <link rel="stylesheet" href="{{ site.baseurl }}/blog-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="noise">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="{{ site.baseurl }}/index.html" class="nav-link">HOME</a>
+            <a href="{{ site.baseurl }}/blog.html" class="nav-link">BLOG</a>
+        </div>
+    </nav>
+
+    <!-- Blog Post Content -->
+    <section class="blog-post">
+        <div class="blog-post-content">
+            <h1 class="blog-post-title">{{ page.title }}</h1>
+            
+            <p class="blog-post-date">{{ page.published_date }}</p>
+
+            <div class="blog-post-body">
+                {{ content }}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">© 2026 KBC ALL Rights Reserved</p>
+    </footer>
+</body>
+</html>
