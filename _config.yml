@@ -1,7 +1,7 @@
 # Site settings
 title: Kingston Book Club
-url: "https://kingstonbookclub"
-baseurl: "/kingstonbookclub.github.io"
+url: "https://kingstonbookclub.github.io"
+baseurl: ""
 
 # Build settings
 markdown: kramdown
