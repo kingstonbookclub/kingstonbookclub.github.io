@@ -3,9 +3,17 @@ layout: post
 title: "Meeting Re-cap: Saturday, January 24th, 2026"
 date: 2026-01-24
 published_date: "Friday, January 30, 2026"
-excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor."
+excerpt: "Short form reads!"
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Short form reads! 
 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+We had our first meeting dedicated to short-form reads. The 3rd meeting of every month we'll get some member-recommended texts together to try and add some diversity to our reading.
+
+We had some fantastic picks for this meeting. 
+
+To recap we discussed:
+- ⁠⁠whether choosing political leadership is a strong or weak-link problem
+- ⁠⁠⁠what shapes the modern occult comes in
+- ⁠⁠⁠how religiosity/secularism varies by demographics
+- ⁠⁠⁠if secularism can sufficiently fill the gap left by religion

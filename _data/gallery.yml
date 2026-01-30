@@ -2,63 +2,63 @@
 # Add or remove images from this list
 
 images:
+  - path: "/images/DSC_0423.jpg"
+    alt: "Book club meeting 3"
+    caption: "Meeting #3 - January 24th, 2026"
+
   - path: "/images/IMG_2051.jpeg"
-    alt: "Book club meeting 1"
-    caption: "first meeting. blah blaah."
+    alt: "Kimberly"
+    caption: "Our daring icebreaker champ Kimberly!"
   
   - path: "/images/DSC_0387.jpg"
-    alt: "Book club meeting 2"
-    caption: "Second meeting discussing Chapters 3 & 4."
+    alt: "KBC Meeting #2"
+    caption: "Meeting #2 - January 17th, 2026"
   
   - path: "/images/DSC_0385.jpg"
     alt: "Book club meeting 3"
-    caption: "Great discussion today about ideological diversity and reasoning."
+    caption: "Is this our first friend group?"
   
   - path: "/images/DSC_0415.jpg"
-    alt: "Book club meeting 4"
-    caption: "Shout out to the super smart and awesome people."
+    alt: "Book club meeting 3"
+    caption: "Meeting #3 - January 24th, 2026"
 
   - path: "/images/DSC_0418.jpg"
-    alt: "Book club meeting 5"
-    caption: "this the coolest club to meet."
+    alt: "Book club meeting 3"
+    caption: "Meeting #3 - January 24th, 2026"
 
   - path: "/images/DSC_0417.jpg"
-    alt: "Book club meeting 1"
-    caption: ""
-  
+    alt: "Book club meeting 3"
+    caption: "Meeting #3 - January 24th, 2026"
+
   - path: "/images/DSC_0441.jpg"
-    alt: "Book club meeting 2"
-    caption: "Second meeting discussing Chapters 3 & 4."
+    alt: "Jenell and Jordan"
+    caption: "Jenell, The Best Moderator and Jordan (also custom shirts!)"
   
   - path: "/images/DSC_0435.jpg"
     alt: "Book club meeting 3"
-    caption: "Great discussion today about ideological diversity and reasoning."
+    caption: "Meeting #3 - January 24th, 2026"
   
   - path: "/images/DSC_0425.jpg"
-    alt: "Book club meeting 4"
-    caption: "Shout out to the super smart and awesome people."
-
-  - path: "/images/DSC_0423.jpg"
-    alt: "Book club meeting 5"
-    caption: "this the coolest club to meet."
+    alt: "Book club meeting 3"
+    caption: "Meeting #3 - January 24th, 2026"
 
   - path: "/images/DSC_0412.jpg"
-    alt: "Book club meeting 1"
-    caption: "first meeting. blah blaah."
+    alt: "Book club meeting 3"
+    caption: "Gripping discussion in our 3rd meeting."
   
   - path: "/images/DSC_0397.jpg"
-    alt: "Book club meeting 2"
-    caption: "Second meeting discussing Chapters 3 & 4."
+    alt: "Social media boss Renée"
+    caption: "Social media boss Renée, Meeting #2 - January 17th, 2026"
   
   - path: "/images/DSC_0408.jpg"
-    alt: "Book club meeting 3"
-    caption: "Great discussion today about ideological diversity and reasoning."
-  
+    alt: "Book club meeting 2"
+    caption: "Meeting #2 - January 17th, 2026."
+
   - path: "/images/IMG_2043.jpeg"
-    alt: "Book club meeting 4"
-    caption: "Shout out to the super smart and awesome people."
+    alt: "Shanrick and Rujay"
+    caption: "Shanrick and Rujay, Meeting #1 - January 10th, 2026"
 
   - path: "/images/IMG_2044.jpeg"
-    alt: "Book club meeting 5"
-    caption: "this the coolest club to meet."
-    
+    alt: "Our first meeting!"
+    caption: "Meeting #1 - January 10th 2026."
+
