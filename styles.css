@@ -650,7 +650,7 @@ body::after {
 
 @media (max-width: 768px) {
     .upcoming-events {
-        padding: 60px 30px;
+        padding: 0 30px 60px 30px;
     }
 
     .calendar-container {
@@ -686,7 +686,7 @@ body::after {
 
 @media (max-width: 480px) {
     .upcoming-events {
-        padding: 50px 20px;
+        padding: 0 20px 50px 20px;
     }
 
     .calendar-container {
