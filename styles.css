@@ -101,7 +101,7 @@ body::after {
 /* Blog Page - was previously "Article" */
 .articles {
     width: 100%;
-    padding: 0 40px 60px 40px;
+    padding: 0 40px 80px 40px;
     display: flex;
     justify-content: center;
 }
@@ -216,7 +216,7 @@ body::after {
 
 @media (max-width: 480px) {
     .articles {
-        padding: 0 20px 40px 20px;
+        padding: 0 20px 50px 20px;
     }
 
     .article-post {
@@ -244,7 +244,7 @@ body::after {
 /* Hero Section*/
 .hero {
     width: 100%;
-    padding: 0 40px 60px 40px;
+    padding: 0 40px 80px 40px;
     display: flex;
     justify-content: center;
 }
@@ -278,7 +278,7 @@ body::after {
 
 .quote-mark {
     font-family: "Times New Roman", serif;
-    font-size: 80px;
+    font-size: 70px;
     line-height: 0.5;
     display: block;
     text-align: left;
@@ -289,7 +289,7 @@ body::after {
 
 .quote-text {
     font-family: 'Libre Baskerville', serif;
-    font-size: 22px;
+    font-size: 20px;
     font-style: italic;
     line-height: 1.6;
     margin-bottom: 30px;
@@ -297,7 +297,7 @@ body::after {
 
 .quote-author {
     font-family: 'Libre Baskerville', serif;
-    font-size: 19px;
+    font-size: 17px;
     font-style: normal;
 }
 
@@ -317,11 +317,7 @@ body::after {
     }
     
     .quote-mark {
-        font-size: 70px;
-    }
-    
-    .quote-text {
-        font-size: 24px;
+        font-size: 60px;
     }
 }
 
@@ -332,7 +328,7 @@ body::after {
     
     .hero-title {
         font-size: 42px;
-        margin-bottom: 60px;
+        /*margin-bottom: 60px;*/
     }
     
     .hero-text {
@@ -340,21 +336,25 @@ body::after {
     }
     
     .quote-box {
-        margin: 80px 0;
+        margin: 70px 0;
     }
     
     .quote-mark {
-        font-size: 60px;
+        font-size: 50px;
     }
     
     .quote-text {
-        font-size: 22px;
+        font-size: 18px;
+    }
+
+	.quote-author {
+        font-size: 17px;
     }
 }
 
 @media (max-width: 480px) {
     .hero {
-        padding: 0 20px 40px 20px;
+        padding: 0 20px 50px 20px;
     }
     
     .hero-title {
@@ -365,12 +365,8 @@ body::after {
         font-size: 16px;
     }
     
-    .quote-mark {
-        font-size: 50px;
-    }
-    
-    .quote-text {
-        font-size: 20px;
+    .quote-author {
+        font-size: 15px;
     }
 }
 
@@ -437,7 +433,7 @@ body::after {
 
 .book-quote-mark {
     font-family: "Times New Roman", serif;
-    font-size: 80px;
+    font-size: 70px;
     line-height: 0.5;
     display: block;
     text-align: left;
@@ -486,7 +482,7 @@ body::after {
 
 @media (max-width: 768px) {
     .current-reading {
-        padding: 60px 30px;
+        padding: 0 30px 60px 30px;
     }
 
     .section-title {
@@ -503,7 +499,7 @@ body::after {
     }
 
     .book-quote-mark {
-        font-size: 60px;
+        font-size: 50px;
     }
 
     .book-quote-text {
@@ -517,7 +513,7 @@ body::after {
 
 @media (max-width: 480px) {
     .current-reading {
-        padding: 40px 20px;
+        padding: 0 20px 50px 20px;
     }
 
     .section-title {
@@ -586,7 +582,7 @@ body::after {
 
 @media (max-width: 480px) {
     .short-reading {
-        padding: 0 20px 40px 20px;
+        padding: 0 20px 50px 20px;
     }
 
     .article-link {
@@ -597,7 +593,7 @@ body::after {
 /* Upcoming Events Section */
 .upcoming-events {
     width: 100%;
-    padding: 0 40px 40px 40px;
+    padding: 0 40px 60px 40px;
     display: flex;
     justify-content: center;
 }
@@ -654,7 +650,7 @@ body::after {
 
 @media (max-width: 768px) {
     .upcoming-events {
-        padding: 0 30px 60px 30px;
+        padding: 60px 30px;
     }
 
     .calendar-container {
@@ -690,7 +686,7 @@ body::after {
 
 @media (max-width: 480px) {
     .upcoming-events {
-        padding: 0 20px 40px 20px;
+        padding: 50px 20px;
     }
 
     .calendar-container {
@@ -719,7 +715,7 @@ body::after {
 /*Previous Meetings Section - Has been omitted*/
 .previous-meetings {
     width: 100%;
-    padding: 0 40px 40px 40px;
+    padding: 0 40px 80px 40px;
     display: flex;
     justify-content: center;
 }
@@ -853,7 +849,7 @@ body::after {
 
 @media (max-width: 480px) {
     .previous-meetings {
-        padding: 0 20px 40px 20px;
+        padding: 0 20px 50px 20px;
     }
 
     .timeline-item {
@@ -881,7 +877,7 @@ body::after {
 /*Purpose/Mission Section*/
 .purpose {
     width: 100%;
-    padding: 0 40px 60px 40px;
+    padding: 0 40px 80px 40px;
     display: flex;
     justify-content: center;
 }
@@ -992,11 +988,11 @@ body::after {
 
 @media (max-width: 480px) {
     .purpose {
-        padding: 0 20px 40px 20px;
+        padding: 0 20px 50px 20px;
     }
 
     .membership {
-        padding: 0 20px 40px 20px;
+        padding: 0 20px 50px 20px;
     }
 
     .purpose-text,
@@ -1014,7 +1010,7 @@ body::after {
 /* FAQ Section */
 .faq {
     width: 100%;
-    padding: 0 40px 60px 40px;
+    padding: 0 40px 80px 40px;
     display: flex;
     justify-content: center;
 }
@@ -1201,7 +1197,7 @@ body::after {
 /* Gallery Section*/
 .gallery {
     width: 100%;
-    padding: 0 40px 60px 40px;
+    padding: 0 40px 80px 40px;
     display: flex;
     justify-content: center;
 }
@@ -1326,7 +1322,7 @@ body::after {
 
 @media (max-width: 768px) {
     .gallery {
-        padding: 0 30px 80px 30px;
+        padding: 0 30px 60px 30px;
     }
 
     .gallery-container {
@@ -1347,7 +1343,7 @@ body::after {
 
 @media (max-width: 480px) {
     .gallery {
-        padding: 0 20px 70px 20px;
+        padding: 0 20px 50px 20px;
     }
 
     .gallery-container {
