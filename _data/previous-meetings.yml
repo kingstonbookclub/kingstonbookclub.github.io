@@ -5,18 +5,19 @@
 year: 2026
 
 meetings:
+
+  - date: "JAN 31"
+    title: "Meeting #4 - The Righteous Mind, chapters 5 & 6"
+    blog_url: "/blog/2026/01/31/meeting-recap-jan-31"
+
+  - date: "JAN 24"
+    title: "Meeting #3 - Short form reads discussion"
+    blog_url: "/blog/2026/01/24/meeting-recap-january-24"
+
   - date: "JAN 17"
-    title: "The Righteous Mind meeting #2, chapters 3 & 4"
-    blog_url: "" 
+    title: "Meeting #2 - The Righteous Mind, chapters 3 & 4"
+    blog_url: "/blog/2026/01/17/meeting-recap-jan-17" 
   
   - date: "JAN 10"
-    title: "The Righteous Mind meeting #1, first meeting"
+    title: "Meeting #1 - The Righteous Mind, chapters 1 & 2, first meeting"
     blog_url: "/blog/2026/01/10/meeting-recap-jan-10"
-  
-  - date: "JAN 3"
-    title: "Short form reads discussion, announcement for next chapter"
-    blog_url: ""
-  
-  - date: "DEC 15"
-    title: "First Meeting Announcement"
-    blog_url: "/blog/2025/12/15/first-meeting-announcement"

@@ -1,14 +1,14 @@
 # Upcoming Events
 events:
-  
-  - date: "JAN 31, 2026"
-    description: "The Righteous Mind (Chapters 5 & 6) with chapter discussion"
 
   - date: "FEB 7, 2026"
-    description: "The Righteous Mind (Chapters 7 - 9)"
+    description: "The Righteous Mind (Chapters 7 & 8)"
 
   - date: "FEB 14, 2026"
-    description: "The Righteous Mind (Chapters 9-12). Final meeting for The Righteous Mind!"
+    description: "The Righteous Mind (Chapters 9 & 10)."
 
   - date: "FEB 21, 2026"
     description: "3rd meeting in the month - Short form reads!"
+
+  - date: "FEB 28, 2026"
+    description: "The Righteous Mind (Chapters 11 & 12). Final meeting for The Righteous Mind!"
