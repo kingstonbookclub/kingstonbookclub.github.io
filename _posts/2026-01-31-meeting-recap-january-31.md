@@ -15,10 +15,15 @@ We had some pastries brought in today. We also had a couple new visitors. Good f
 Here are the questions we discussed:
 
 1.⁠ ⁠Are Jamaicans WEIRD in their outlook? How about this book club? 
+
 2.⁠ ⁠⁠Based on Haidt's experience, do you think that cultural immersion could be a net positive for most people? 
+
 3.⁠ ⁠I⁠s it possible to get moral consensus in a multicultural/pluralistic society? 
+
 4.⁠ ⁠⁠Was Jeremy Bentham's philosophy of a utility-maximizing legal code infeasible or unrealistic? Why or why not? 
+
 5.⁠ ⁠⁠Does Kant or Bentham having undiagnosed Asperger's detract from the validity of their moral theories? 
+
 6.⁠ ⁠⁠By identifying the primordial moral receptors, did Haidt make a case for universal virtues? Universal vices? 
 
 The discussion was pretty heated, especially on questions 3 and 4. 
