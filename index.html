@@ -45,6 +45,7 @@
     </section>
 
     <!-- Current Reading Section -->
+    {% if site.data.short-reading.enabled == false %}
     <section class="current-reading">
         <div class="current-reading-content">
             <h2 class="section-title">Our Current Reading</h2>
@@ -74,6 +75,7 @@
             </div>
         </div>
     </section>
+    {% endif %}
 
    <!-- Short Reading Section -->
     {% if site.data.short-reading.enabled %}
