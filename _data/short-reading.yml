@@ -1,14 +1,20 @@
 # Short Reading Section
 # Set enabled to true to show this section, false to hide it
-enabled: false
+enabled: true
 
 # List of articles
 articles:
-  - title: "How the Occult Gave Birth to Science"
-    url: "https://nautil.us/how-the-occult-gave-birth-to-science-1041122/"
+  - title: "My Family’s Slave by Alex Tizon"
+    url: "https://www.theatlantic.com/magazine/archive/2017/06/lolas-story/524490/"
   
-  - title: "Science is a strong-link problem"
-    url: "https://www.experimental-history.com/p/science-is-a-strong-link-problem"
+  - title: "What Slim Saw"
+    url: "https://therake.com/default/stories/what-slim-saw"
   
-  - title: "Roger Federer as Religious Experience"
-    url: "https://www.nytimes.com/2006/08/20/sports/playmagazine/20federer.html"
+  - title: "⁠What Makes Us Human?"
+    url: "https://share.google/WVrziNfYeEw7jEZf6"
+
+  - title: "Review: The Burnout Society"
+    url: "https://archive.is/JYm2y"
+  
+  - title: "The World Order Has Broken Down by Ray Dalio"
+    url: "https://x.com/RayDalio/status/2022788750388998543"
