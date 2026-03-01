@@ -215,7 +215,7 @@
         <div class="articles-content">
             <h2 class="section-title">Blogs</h2>
 			
-            {% assign recent_posts = site.posts | slice: 0, 5 | reverse %}
+            {% assign recent_posts = site.posts | slice: 0, 5 %}
             {% for post in recent_posts %}
             <article class="article-post">
                 <h3 class="article-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
