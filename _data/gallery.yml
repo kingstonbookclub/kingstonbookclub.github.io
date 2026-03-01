@@ -2,6 +2,18 @@
 # Add or remove images from this list
 
 images:
+  - path: "/images/IMG_4110.jpg"
+    alt: "Book club meeting 8"
+    caption: "Meeting #8 @ Ragamuffin Café - February 28th, 2026"
+  
+  - path: "/images/IMG_4157.jpg"
+    alt: "KBC @ Jamaica Book Festival"
+    caption: "KBC @ Jamaica Book Festival - February 28th, 2026"
+
+  - path: "/images/IMG_4122.jpg"
+    alt: "Zanya"
+    caption: "Zanya, KBC Meeting #8 - February 28th, 2026"
+
   - path: "/images/DSC_0423.jpg"
     alt: "Book club meeting 3"
     caption: "Meeting #3 - January 24th, 2026"
@@ -22,10 +34,6 @@ images:
     alt: "Book club meeting 3"
     caption: "Meeting #3 - January 24th, 2026"
 
-  - path: "/images/DSC_0418.jpg"
-    alt: "Book club meeting 3"
-    caption: "Meeting #3 - January 24th, 2026"
-
   - path: "/images/DSC_0417.jpg"
     alt: "Book club meeting 3"
     caption: "Meeting #3 - January 24th, 2026"
@@ -33,10 +41,6 @@ images:
   - path: "/images/DSC_0441.jpg"
     alt: "Jenell and Jordan"
     caption: "Jenell, The Best Moderator and Jordan (also custom shirts!)"
-  
-  - path: "/images/DSC_0435.jpg"
-    alt: "Book club meeting 3"
-    caption: "Meeting #3 - January 24th, 2026"
   
   - path: "/images/DSC_0425.jpg"
     alt: "Book club meeting 3"

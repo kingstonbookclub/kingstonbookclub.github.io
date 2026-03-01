@@ -58,6 +58,7 @@
                 <img src="{{ site.baseurl }}{{ site.data.current-reading.book_image }}" alt="{{ site.data.current-reading.book_title }} book cover" class="book-cover">
             </div>
 
+            {% if site.data.current-reading.quote %}
             <p class="reading-note">
                 While reading this book we encountered the following quote which feels like it was targeted at our membership.
             </p>
@@ -68,6 +69,7 @@
                     {{ site.data.current-reading.quote }}
                 </p>
             </div>
+            {% endif %}
 
             <div class="book-links">
                 <a href="{{ site.data.current-reading.goodreads_link }}" target="_blank" class="book-link"><span>View on Goodreads</span></a>
