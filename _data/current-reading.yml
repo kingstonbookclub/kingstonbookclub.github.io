@@ -4,6 +4,6 @@ author: "Daron Acemoglu and James A. Robinson"
 chapters: "Chapters 1 & 2"
 current_date: "March 7th, 2026"
 book_image: "/images/book.jpg"
-quote: ""
+quote: false
 goodreads_link: "https://www.goodreads.com/book/show/12158480-why-nations-fail"
 amazon_link: "https://www.amazon.com/Why-Nations-Fail-Origins-Prosperity/dp/0307719227"
