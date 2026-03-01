@@ -2,15 +2,15 @@
 # Add or remove images from this list
 
 images:
-  - path: "/images/IMG_4110.jpg"
+  - path: "/images/IMG_4110.jpeg"
     alt: "Book club meeting 8"
     caption: "Meeting #8 @ Ragamuffin Café - February 28th, 2026"
   
-  - path: "/images/IMG_4157.jpg"
+  - path: "/images/IMG_4157.jpeg"
     alt: "KBC @ Jamaica Book Festival"
     caption: "KBC @ Jamaica Book Festival - February 28th, 2026"
 
-  - path: "/images/IMG_4122.jpg"
+  - path: "/images/IMG_4122.jpeg"
     alt: "Zanya"
     caption: "Zanya, KBC Meeting #8 - February 28th, 2026"
 
