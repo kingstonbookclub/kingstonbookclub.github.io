@@ -1,14 +1,13 @@
 # Upcoming Events
 events:
+  - date: "MAR 7, 2026"
+    description: "Why Nations Fail (Chapters 1 & 2). First meeting for Why Nations Fail!"
+  
+  - date: "MAR 14, 2026"
+    description: "Why Nations Fail (Chapters 3 & 4)"
 
-  - date: "FEB 14, 2026"
-    description: "The Righteous Mind (Chapters 9 & 10)."
-
-  - date: "FEB 21, 2026"
+  - date: "MAR 21, 2026"
     description: "3rd meeting in the month - Short form reads!"
 
-  - date: "FEB 28, 2026"
-    description: "The Righteous Mind (Chapters 11 & 12). Final meeting for The Righteous Mind!"
-
-  - date: "MAR 6, 2026"
-    description: "New book! (TBA)"
+  - date: "MAR 28, 2026"
+    description: "Why Nations Fail (Chapters 5 & 6)"
