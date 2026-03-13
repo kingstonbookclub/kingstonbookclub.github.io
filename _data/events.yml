@@ -1,13 +1,14 @@
 # Upcoming Events
 events:
-  - date: "MAR 7, 2026"
-    description: "Why Nations Fail (Chapters 1 & 2). First meeting for Why Nations Fail!"
   
   - date: "MAR 14, 2026"
-    description: "Why Nations Fail (Chapters 3 & 4)"
+    description: "Why Nations Fail (Chapters 3 & 4) + Books & Bottles Social Event at 1pm"
 
   - date: "MAR 21, 2026"
     description: "3rd meeting in the month - Short form reads!"
 
   - date: "MAR 28, 2026"
     description: "Why Nations Fail (Chapters 5 & 6)"
+  
+  - date: "APR 4, 2026"
+    description: "Why Nations Fail (Chapters 7 & 8). Book club hike day!"
