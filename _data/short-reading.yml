@@ -1,20 +1,17 @@
 # Short Reading Section
 # Set enabled to true to show this section, false to hide it
-enabled: false
+enabled: true
 
 # List of articles
 articles:
-  - title: "My Family’s Slave by Alex Tizon"
-    url: "https://www.theatlantic.com/magazine/archive/2017/06/lolas-story/524490/"
-  
-  - title: "What Slim Saw"
-    url: "https://therake.com/default/stories/what-slim-saw"
-  
-  - title: "What Makes Us Human?"
-    url: "https://share.google/WVrziNfYeEw7jEZf6"
+  - title: "Hannah Arendt on Love and How to Live with the Fundamental Fear of Loss"
+    url: "https://www.themarginalian.org/2019/02/25/love-and-saint-augustine-hannah-arendt/"
 
-  - title: "Review: The Burnout Society"
-    url: "https://archive.is/JYm2y"
-  
-  - title: "The World Order Has Broken Down by Ray Dalio"
-    url: "https://x.com/RayDalio/status/2022788750388998543"
+  - title: "The Shape of Time"
+    url: "https://aeon.co/essays/when-we-turned-time-into-a-line-we-reimagined-past-and-future"
+
+  - title: "Bitch: A History"
+    url: "https://aeon.co/essays/what-the-evolution-of-bitch-says-about-gender-and-power"
+
+  - title: "History as a Given"
+    url: "https://dianathorburn.substack.com/p/history-as-a-given?utm_source=share&utm_medium=android&r=dss31&triedRedirect=true"
