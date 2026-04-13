@@ -1,14 +1,11 @@
 # Upcoming Events
 events:
 
-  - date: "APR 4, 2026"
-    description: "Why Nations Fail (Chapters 7 & 8) + Camping trip at Holywell!"
-
-  - date: "APR 11, 2026"
-    description: "Why Nations Fail (Chapters 9 & 10)"
-
   - date: "APR 18, 2026"
-    description: "Why Nations Fail (Chapters 11 & 12)"
+    description: "Short Form Reads"
 
   - date: "APR 25, 2026"
-    description: "Short Form Reads"
+    description: "Why Nations Fail (Chapters 11 & 12)"
+
+  - date: "MAY 2, 2026"
+    description: "Why Nations Fail (Chapters 13 & 14)"

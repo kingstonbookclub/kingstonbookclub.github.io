@@ -1,17 +1,14 @@
 # Short Reading Section
 # Set enabled to true to show this section, false to hide it
-enabled: false
+enabled: true
 
 # List of articles
 articles:
-  - title: "Hannah Arendt on Love and How to Live with the Fundamental Fear of Loss"
-    url: "https://www.themarginalian.org/2019/02/25/love-and-saint-augustine-hannah-arendt/"
+  - title: "US's New Scramble for Africa is Biomedical Imperialism"
+    url: "https://www.aljazeera.com/opinions/2026/3/13/uss-new-scramble-for-africa-is-biomedical-imperialism"
 
-  - title: "The Shape of Time"
-    url: "https://aeon.co/essays/when-we-turned-time-into-a-line-we-reimagined-past-and-future"
+  - title: "Mouse Heaven or Mouse Hell?"
+    url: "https://www.sciencehistory.org/stories/magazine/mouse-heaven-or-mouse-hell/"
 
-  - title: "Bitch: A History"
-    url: "https://aeon.co/essays/what-the-evolution-of-bitch-says-about-gender-and-power"
-
-  - title: "History as a Given"
-    url: "https://dianathorburn.substack.com/p/history-as-a-given?utm_source=share&utm_medium=android&r=dss31&triedRedirect=true"
+  - title: "Neuroplasticity: Rewiring Your Brain"
+    url: "https://ixcarus.substack.com/p/neuroplasticity-rewiring-your-brain"
