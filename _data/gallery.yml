@@ -2,11 +2,11 @@
 # Add or remove images from this list
 
 images:
-  - path: "/images/KBC Holywell #1.jpeg"
+  - path: "/images/KBCHolywell1.jpeg"
     alt: "KBC Hills & Valleys Camping Trip #1"
     caption: "KBC Hills & Valleys Camping Trip @ Holywell - April 3rd, 2026"
   
-  - path: "/images/KBC Holywell #1.jpeg"
+  - path: "/images/KBCHolywell2.jpeg"
     alt: "KBC Hills & Valleys Camping Trip #2"
     caption: "KBC Hills & Valleys Camping Trip @ Holywell - April 3rd, 2026"
 
