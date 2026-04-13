@@ -2,6 +2,14 @@
 # Add or remove images from this list
 
 images:
+  - path: "/images/KBC Holywell #1.jpeg"
+    alt: "KBC Hills & Valleys Camping Trip #1"
+    caption: "KBC Hills & Valleys Camping Trip @ Holywell - April 3rd, 2026"
+  
+  - path: "/images/KBC Holywell #1.jpeg"
+    alt: "KBC Hills & Valleys Camping Trip #2"
+    caption: "KBC Hills & Valleys Camping Trip @ Holywell - April 3rd, 2026"
+
   - path: "/images/IMG_4110.jpeg"
     alt: "Book club meeting 8"
     caption: "Meeting #8 @ Ragamuffin Café - February 28th, 2026"
@@ -53,14 +61,6 @@ images:
   - path: "/images/DSC_0397.jpg"
     alt: "Social media boss Renée"
     caption: "Social media boss Renée, Meeting #2 - January 17th, 2026"
-  
-  - path: "/images/DSC_0408.jpg"
-    alt: "Book club meeting 2"
-    caption: "Meeting #2 - January 17th, 2026."
-
-  - path: "/images/IMG_2043.jpeg"
-    alt: "Shanrick and Rujay"
-    caption: "Shanrick and Rujay, Meeting #1 - January 10th, 2026"
 
   - path: "/images/IMG_2044.jpeg"
     alt: "Our first meeting!"
