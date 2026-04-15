@@ -1,0 +1,11 @@
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Leaderboard Configuration
+# Update sheet_base and GIDs here if the Google Sheet changes.
+# GIDs are the numeric tab IDs from the published sheet URL.
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+sheet_base: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQhrQu28LUA88Pom8mnQDn9PzgA2lo8E9qSONFhFICsi5Tv4Jt04NlUk-MbAIOppQ/pub?output=csv"
+
+gid_activity_log: "36765296"
+gid_tasks:        "1120359643"
+gid_members:      "730342"

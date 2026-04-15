@@ -1,0 +1,436 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Leaderboard — Kingston Book Club</title>
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+    <style>
+        /* Leaderboard-specific overrides — keep minimal */
+        .leaderboard-section {
+            width: 100%;
+            padding: 0 40px 80px 40px;
+            display: flex;
+            justify-content: center;
+        }
+        .leaderboard-content {
+            width: 100%;
+            max-width: 900px;
+        }
+        @media (max-width: 768px) {
+            .leaderboard-section { padding: 0 30px 60px 30px; }
+        }
+        @media (max-width: 480px) {
+            .leaderboard-section { padding: 0 20px 50px 20px; }
+        }
+    </style>
+</head>
+<body class="noise">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="/index.html" class="nav-link">HOME</a>
+            <a href="/blog.html" class="nav-link">BLOG</a>
+            <a href="/leaderboard/" class="nav-link active">LEADERBOARD</a>
+        </div>
+    </nav>
+
+    <!-- Leaderboard -->
+    <section class="leaderboard-section">
+        <div class="leaderboard-content">
+            <div id="leaderboard-root"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">© 2026 KBC ALL Rights Reserved</p>
+    </footer>
+
+    <script type="text/babel">
+    const { useState, useEffect, useCallback } = React;
+
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // CONFIG — Edit values in _data/leaderboard.yml, not here.
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const SHEET_URLS = {
+      activityLog:  "{{ site.data.leaderboard.sheet_base }}&gid={{ site.data.leaderboard.gid_activity_log }}",
+      tasksAndPoints: "{{ site.data.leaderboard.sheet_base }}&gid={{ site.data.leaderboard.gid_tasks }}",
+      members:      "{{ site.data.leaderboard.sheet_base }}&gid={{ site.data.leaderboard.gid_members }}",
+    };
+
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // COMPONENT — Edit below to change layout or visual design.
+    // Colors are kept in sync with styles.css. Fonts match the site.
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+    function getCurrentMonth() {
+      const d = new Date();
+      return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0");
+    }
+
+    function formatMonth(key) {
+      if (!key) return "";
+      const parts = key.split("-");
+      return MONTHS[parseInt(parts[1])-1] + " " + parts[0];
+    }
+
+    function parseCSV(text) {
+      const lines = text.trim().split("\n");
+      if (lines.length < 2) return [];
+      const headers = parseCSVLine(lines[0]);
+      return lines.slice(1).map(function(line) {
+        const vals = parseCSVLine(line);
+        const obj = {};
+        headers.forEach(function(h, i) { obj[h.trim()] = (vals[i] || "").trim(); });
+        return obj;
+      }).filter(function(row) { return Object.values(row).some(function(v) { return v !== ""; }); });
+    }
+
+    function parseCSVLine(line) {
+      const result = [];
+      let current = "";
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (inQuotes) {
+          if (ch === '"' && line[i+1] === '"') { current += '"'; i++; }
+          else if (ch === '"') { inQuotes = false; }
+          else { current += ch; }
+        } else {
+          if (ch === '"') { inQuotes = true; }
+          else if (ch === ',') { result.push(current); current = ""; }
+          else { current += ch; }
+        }
+      }
+      result.push(current);
+      return result;
+    }
+
+    function getDemoData() {
+      const tasks = [
+        { task: "Attended Meeting",   points: 5,  icon: "📖" },
+        { task: "Arrived On Time",    points: 3,  icon: "⏰" },
+        { task: "Hosted Discussion",  points: 15, icon: "🎤" },
+        { task: "Brought a Friend",   points: 10, icon: "👋" },
+        { task: "Finished the Book",  points: 10, icon: "✅" },
+        { task: "Posted in Group Chat", points: 2, icon: "💬" },
+        { task: "Suggested Next Book", points: 5, icon: "💡" },
+        { task: "Brought Snacks",     points: 5,  icon: "🍪" },
+      ];
+      const members = ["Jordan","Jenell","Curtis","Rujay","Renée","Shanrick","Zanya","Kimberly","Alex","Taylor","Morgan","Casey","Riley","Quinn","Avery"];
+      const scores = {};
+      members.forEach(function(m, i) {
+        scores[m] = Math.max(0, 65 - i * 3 + Math.floor(Math.random() * 8));
+      });
+      return { tasks: tasks, scores: scores };
+    }
+
+    // Colors — kept in sync with styles.css
+    const C = {
+      card:       "#E4E4E4",   // matches .navbar / .footer
+      cardBorder: "#d5d3cd",
+      text:       "#333333",   // matches site body color
+      textLight:  "#666666",
+      textMuted:  "#9b9a95",
+      accent:     "#333333",
+      gold:       "#8a7d3b",
+      silver:     "#6b6b6b",
+      bronze:     "#8b6543",
+      green:      "#4a6b3a",
+      white:      "#FEFEFC",   // matches site background
+    };
+
+    // Fonts — match the site exactly
+    const FONT       = "'Courier Prime', 'Courier New', monospace";
+    const FONT_SERIF = "'Libre Baskerville', Georgia, serif";
+
+    function KBCLeaderboard() {
+      const [scores, setScores] = useState({});
+      const [tasks, setTasks] = useState([]);
+      const [loading, setLoading] = useState(true);
+      const [error, setError] = useState(null);
+      const [isDemo, setIsDemo] = useState(false);
+      const [lastUpdated, setLastUpdated] = useState(null);
+      const currentMonth = getCurrentMonth();
+
+      const fetchData = useCallback(async function() {
+        try {
+          const [logRes, taskRes, membersRes] = await Promise.all([
+            fetch(SHEET_URLS.activityLog),
+            fetch(SHEET_URLS.tasksAndPoints),
+            fetch(SHEET_URLS.members),
+          ]);
+
+          if (!logRes.ok || !taskRes.ok) throw new Error("Failed to fetch sheet data");
+
+          const logText    = await logRes.text();
+          const taskText   = await taskRes.text();
+          const membersText = membersRes.ok ? await membersRes.text() : "";
+
+          const logRows    = parseCSV(logText);
+          const taskRows   = parseCSV(taskText);
+          const memberRows = membersText ? parseCSV(membersText) : [];
+
+          const taskMap = {};
+          const parsedTasks = [];
+          taskRows.forEach(function(row) {
+            const name = row["Task"] || row["task"] || "";
+            const pts  = parseInt(row["Points"] || row["points"] || "0");
+            const icon = row["Icon"] || row["icon"] || "•";
+            if (name) { taskMap[name] = pts; parsedTasks.push({ task: name, points: pts, icon: icon }); }
+          });
+          setTasks(parsedTasks);
+
+          const memberScores = {};
+          memberRows.forEach(function(row) {
+            const name = row["Member Name"] || row["member name"] || row["Name"] || row["name"] || "";
+            if (name) memberScores[name] = 0;
+          });
+
+          logRows.forEach(function(row) {
+            const member = row["Member"] || row["member"] || "";
+            const task   = row["Task"]   || row["task"]   || "";
+            const month  = row["Month"]  || row["month"]  || "";
+            const pointsCell = row["Points (auto)"] || row["points (auto)"] || row["Points"] || "";
+            if (!member) return;
+            if (month && month !== currentMonth) return;
+            let pts = parseInt(pointsCell);
+            if (isNaN(pts)) pts = taskMap[task] || 0;
+            memberScores[member] = (memberScores[member] || 0) + pts;
+          });
+
+          setScores(memberScores);
+          setLastUpdated(new Date());
+          setError(null);
+          setIsDemo(false);
+        } catch(e) {
+          console.error(e);
+          setError("Could not load data from Google Sheet.");
+          const demo = getDemoData();
+          setScores(demo.scores);
+          setTasks(demo.tasks);
+          setIsDemo(true);
+        }
+        setLoading(false);
+      }, [currentMonth]);
+
+      useEffect(function() { fetchData(); }, [fetchData]);
+
+      // Auto-refresh every 2 minutes when live
+      useEffect(function() {
+        if (isDemo) return;
+        const interval = setInterval(fetchData, 120000);
+        return function() { clearInterval(interval); };
+      }, [isDemo, fetchData]);
+
+      const sorted = Object.entries(scores).sort(function(a, b) { return b[1] - a[1]; });
+      const maxPts = sorted.length > 0 ? sorted[0][1] : 0;
+      const rankColors = [C.gold, C.silver, C.bronze];
+      const rankLabels = ["1st", "2nd", "3rd"];
+      const HR = { border: "none", borderTop: "2px solid " + C.accent, margin: "40px 0" };
+
+      if (loading) return (
+        React.createElement("div", { style: { display: "flex", justifyContent: "center", alignItems: "center", minHeight: "40vh" } },
+          React.createElement("div", { style: { fontSize: 13, letterSpacing: 6, color: C.textMuted, textTransform: "uppercase", fontFamily: FONT } },
+            "Loading leaderboard..."
+          )
+        )
+      );
+
+      return (
+        <div style={{ fontFamily: FONT, color: C.text, lineHeight: 1.7 }}>
+
+          {/* Page heading — uses site's section-title style */}
+          <h2 className="section-title" style={{ marginBottom: 8 }}>Leaderboard</h2>
+          <p style={{ fontFamily: FONT, fontSize: 19, color: C.textLight, marginBottom: 40 }}>
+            {formatMonth(currentMonth)}
+          </p>
+
+          {/* Demo / error banners */}
+          {isDemo && (
+            <div style={{
+              background: C.card, border: "1px solid " + C.cardBorder,
+              padding: "12px 16px", marginBottom: 32, fontSize: 14,
+              fontFamily: FONT_SERIF, fontStyle: "italic", color: C.textLight,
+            }}>
+              Preview mode — showing sample data. Connect your Google Sheet to see live scores.
+            </div>
+          )}
+          {error && !isDemo && (
+            <div style={{ background: "#f5e6e6", border: "1px solid #d4b3b3", padding: "12px 16px", marginBottom: 32, fontSize: 14, color: "#8b3a3a" }}>
+              {error}
+            </div>
+          )}
+
+          <hr style={HR} />
+
+          {/* Top 3 Podium */}
+          {sorted.length >= 3 && maxPts > 0 && (
+            <div style={{ marginBottom: 48 }}>
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-end", gap: 20 }}>
+                {[1, 0, 2].map(function(idx) {
+                  const entry  = sorted[idx] || ["—", 0];
+                  const name   = entry[0];
+                  const pts    = entry[1];
+                  const isFirst = idx === 0;
+                  return (
+                    <div key={idx} style={{
+                      display: "flex", flexDirection: "column", alignItems: "center",
+                      flex: 1, order: idx === 0 ? 1 : idx === 1 ? 0 : 2,
+                    }}>
+                      <div style={{ fontSize: 11, letterSpacing: 3, color: rankColors[idx], textTransform: "uppercase", marginBottom: 8, fontWeight: 700, fontFamily: FONT }}>
+                        {rankLabels[idx]}
+                      </div>
+                      <div style={{
+                        width: isFirst ? 72 : 56, height: isFirst ? 72 : 56,
+                        background: C.white, border: "2px solid " + rankColors[idx],
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        fontFamily: FONT_SERIF, fontSize: isFirst ? 28 : 22,
+                        fontWeight: 700, color: rankColors[idx],
+                      }}>
+                        {name.charAt(0)}
+                      </div>
+                      <div style={{ fontWeight: 700, marginTop: 8, textAlign: "center", fontSize: isFirst ? 15 : 13, fontFamily: FONT_SERIF, color: C.text }}>
+                        {name}
+                      </div>
+                      <div style={{ fontWeight: 700, color: rankColors[idx], marginTop: 2, fontSize: isFirst ? 24 : 18, fontFamily: FONT }}>
+                        {pts}
+                      </div>
+                      <div style={{ fontSize: 10, color: C.textMuted, letterSpacing: 3, fontFamily: FONT }}>PTS</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          <hr style={HR} />
+
+          {/* Full Rankings */}
+          <div style={{ marginBottom: 48 }}>
+            <div style={{ fontSize: 12, letterSpacing: 4, color: C.textMuted, textTransform: "uppercase", marginBottom: 20, fontFamily: FONT }}>
+              Full Rankings
+            </div>
+
+            <div style={{
+              display: "flex", alignItems: "center", gap: 10,
+              padding: "0 4px 8px", borderBottom: "2px solid " + C.accent,
+              fontSize: 11, letterSpacing: 2, color: C.textMuted, textTransform: "uppercase", fontFamily: FONT,
+            }}>
+              <div style={{ width: 28, textAlign: "center" }}>#</div>
+              <div style={{ flex: 1 }}>Name</div>
+              <div style={{ width: 120, textAlign: "center" }}>Progress</div>
+              <div style={{ width: 44, textAlign: "right" }}>Pts</div>
+            </div>
+
+            {sorted.map(function(entry, i) {
+              const name   = entry[0];
+              const pts    = entry[1];
+              const isTop3 = i < 3 && pts > 0;
+              const rc     = isTop3 ? rankColors[i] : C.textMuted;
+              return (
+                <div key={name} style={{
+                  display: "flex", alignItems: "center", gap: 10,
+                  padding: "10px 4px", borderBottom: "1px solid " + C.cardBorder,
+                  background: isTop3 ? C.card : "transparent",
+                }}>
+                  <div style={{ width: 28, fontSize: 14, color: isTop3 ? rc : C.textMuted, fontWeight: 700, textAlign: "center", fontFamily: FONT }}>
+                    {i + 1}
+                  </div>
+                  <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 10 }}>
+                    <div style={{
+                      width: 30, height: 30,
+                      background: isTop3 ? rc : C.cardBorder,
+                      color: isTop3 ? C.white : C.textLight,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: 13, fontWeight: 700, fontFamily: FONT_SERIF, flexShrink: 0,
+                    }}>
+                      {name.charAt(0)}
+                    </div>
+                    <span style={{ fontSize: 14, fontWeight: isTop3 ? 700 : 400, fontFamily: FONT }}>
+                      {name}
+                    </span>
+                  </div>
+                  <div style={{ width: 120 }}>
+                    <div style={{ height: 6, background: C.cardBorder, overflow: "hidden" }}>
+                      <div style={{
+                        height: "100%", transition: "width 0.5s ease",
+                        width: maxPts > 0 ? Math.max(2, (pts / maxPts) * 100) + "%" : "2%",
+                        background: isTop3 ? rc : C.textMuted,
+                      }} />
+                    </div>
+                  </div>
+                  <div style={{ width: 44, textAlign: "right", fontSize: 15, fontWeight: 700, color: isTop3 ? rc : C.textLight, fontFamily: FONT }}>
+                    {pts}
+                  </div>
+                </div>
+              );
+            })}
+
+            {sorted.length === 0 && (
+              <div style={{ color: C.textMuted, padding: "24px 0", fontFamily: FONT_SERIF, fontStyle: "italic" }}>
+                No activity logged this month.
+              </div>
+            )}
+          </div>
+
+          <hr style={HR} />
+
+          {/* Points Guide */}
+          <div style={{ marginBottom: 48 }}>
+            <div style={{ fontSize: 12, letterSpacing: 4, color: C.textMuted, textTransform: "uppercase", marginBottom: 16, fontFamily: FONT }}>
+              How to Earn Points
+            </div>
+            <div style={{ columns: 2, columnGap: 24 }}>
+              {tasks.map(function(t) {
+                return (
+                  <div key={t.task} style={{
+                    display: "flex", justifyContent: "space-between",
+                    padding: "6px 0", borderBottom: "1px solid " + C.cardBorder,
+                    fontSize: 14, breakInside: "avoid", fontFamily: FONT,
+                  }}>
+                    <span>{t.icon} {t.task}</span>
+                    <span style={{ color: C.green, fontWeight: 700 }}>+{t.points}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Footer meta */}
+          <div style={{ textAlign: "right" }}>
+            {lastUpdated && (
+              <span style={{ fontSize: 12, color: C.textMuted, fontFamily: FONT }}>
+                Updated {lastUpdated.toLocaleTimeString()}
+                <span style={{ margin: "0 8px" }}>·</span>
+                <button onClick={fetchData} style={{
+                  background: "none", border: "none", color: C.textLight,
+                  cursor: "pointer", fontFamily: FONT, fontSize: 12,
+                  textDecoration: "underline", padding: 0,
+                }}>Refresh</button>
+              </span>
+            )}
+          </div>
+
+        </div>
+      );
+    }
+
+    ReactDOM.render(React.createElement(KBCLeaderboard), document.getElementById("leaderboard-root"));
+    </script>
+
+</body>
+</html>
