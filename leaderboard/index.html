@@ -57,17 +57,25 @@
         <p class="footer-text">© 2026 KBC ALL Rights Reserved</p>
     </footer>
 
+    <!--
+      CONFIG block — Jekyll processes this to inject sheet URLs from _data/leaderboard.yml.
+      Must be a plain <script> (not Babel) so Jekyll's {{ }} and JSX's {{ }} don't collide.
+    -->
+    <script>
+      var SHEET_URLS = {
+        activityLog:    "{{ site.data.leaderboard.sheet_base }}&gid={{ site.data.leaderboard.gid_activity_log }}",
+        tasksAndPoints: "{{ site.data.leaderboard.sheet_base }}&gid={{ site.data.leaderboard.gid_tasks }}",
+        members:        "{{ site.data.leaderboard.sheet_base }}&gid={{ site.data.leaderboard.gid_members }}",
+      };
+    </script>
+
+    <!--
+      COMPONENT block — wrapped in raw/endraw so Jekyll ignores {{ }} inside JSX.
+      Edit values in _data/leaderboard.yml for config, or edit below for layout/design.
+    -->
+    {% raw %}
     <script type="text/babel">
     const { useState, useEffect, useCallback } = React;
-
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    // CONFIG — Edit values in _data/leaderboard.yml, not here.
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    const SHEET_URLS = {
-      activityLog:  "{{ site.data.leaderboard.sheet_base }}&gid={{ site.data.leaderboard.gid_activity_log }}",
-      tasksAndPoints: "{{ site.data.leaderboard.sheet_base }}&gid={{ site.data.leaderboard.gid_tasks }}",
-      members:      "{{ site.data.leaderboard.sheet_base }}&gid={{ site.data.leaderboard.gid_members }}",
-    };
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     // COMPONENT — Edit below to change layout or visual design.
@@ -431,6 +439,7 @@
 
     ReactDOM.render(React.createElement(KBCLeaderboard), document.getElementById("leaderboard-root"));
     </script>
+    {% endraw %}
 
 </body>
 </html>
