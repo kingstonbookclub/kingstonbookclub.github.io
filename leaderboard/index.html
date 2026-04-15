@@ -244,7 +244,10 @@
         return function() { clearInterval(interval); };
       }, [isDemo, fetchData]);
 
-      const sorted = Object.entries(scores).sort(function(a, b) { return b[1] - a[1]; });
+      const sorted = Object.entries(scores)
+        .sort(function(a, b) { return b[1] - a[1]; })
+        .filter(function(e) { return e[1] > 0; })
+        .slice(0, 10);
       const maxPts = sorted.length > 0 ? sorted[0][1] : 0;
       const rankColors = [C.gold, C.silver, C.bronze];
       const rankLabels = ["1st", "2nd", "3rd"];
@@ -327,10 +330,10 @@
 
           <hr style={HR} />
 
-          {/* Full Rankings */}
+          {/* Top 10 Rankings */}
           <div style={{ marginBottom: 48 }}>
             <div style={{ fontSize: 12, letterSpacing: 4, color: C.textMuted, textTransform: "uppercase", marginBottom: 20, fontFamily: FONT }}>
-              Full Rankings
+              Top 10
             </div>
 
             <div style={{
@@ -349,12 +352,16 @@
               const pts    = entry[1];
               const isTop3 = i < 3 && pts > 0;
               const rc     = isTop3 ? rankColors[i] : C.textMuted;
+              const href   = "/leaderboard/member/?name=" + encodeURIComponent(name);
               return (
-                <div key={name} style={{
+                <a key={name} href={href} style={{
                   display: "flex", alignItems: "center", gap: 10,
                   padding: "10px 4px", borderBottom: "1px solid " + C.cardBorder,
                   background: isTop3 ? C.card : "transparent",
-                }}>
+                  textDecoration: "none", color: "inherit",
+                  cursor: "pointer", transition: "opacity 0.2s",
+                }} onMouseEnter={function(e) { e.currentTarget.style.opacity = "0.7"; }}
+                   onMouseLeave={function(e) { e.currentTarget.style.opacity = "1"; }}>
                   <div style={{ width: 28, fontSize: 14, color: isTop3 ? rc : C.textMuted, fontWeight: 700, textAlign: "center", fontFamily: FONT }}>
                     {i + 1}
                   </div>
@@ -384,7 +391,7 @@
                   <div style={{ width: 44, textAlign: "right", fontSize: 15, fontWeight: 700, color: isTop3 ? rc : C.textLight, fontFamily: FONT }}>
                     {pts}
                   </div>
-                </div>
+                </a>
               );
             })}
 

@@ -1,0 +1,291 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member — Kingston Book Club</title>
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+    <style>
+        .leaderboard-section {
+            width: 100%;
+            padding: 0 40px 80px 40px;
+            display: flex;
+            justify-content: center;
+        }
+        .leaderboard-content {
+            width: 100%;
+            max-width: 900px;
+        }
+        @media (max-width: 768px) {
+            .leaderboard-section { padding: 0 30px 60px 30px; }
+        }
+        @media (max-width: 480px) {
+            .leaderboard-section { padding: 0 20px 50px 20px; }
+        }
+    </style>
+</head>
+<body class="noise">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="/index.html" class="nav-link">HOME</a>
+            <a href="/blog.html" class="nav-link">BLOG</a>
+            <a href="/leaderboard/" class="nav-link active">LEADERBOARD</a>
+        </div>
+    </nav>
+
+    <!-- Member Detail -->
+    <section class="leaderboard-section">
+        <div class="leaderboard-content">
+            <div id="member-root"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">© 2026 KBC ALL Rights Reserved</p>
+    </footer>
+
+    <!-- CONFIG — Jekyll injects sheet URLs from _data/leaderboard.yml -->
+    <script>
+      var SHEET_URLS = {
+        activityLog:    "{{ site.data.leaderboard.sheet_base }}&gid={{ site.data.leaderboard.gid_activity_log }}",
+        tasksAndPoints: "{{ site.data.leaderboard.sheet_base }}&gid={{ site.data.leaderboard.gid_tasks }}",
+      };
+    </script>
+
+    {% raw %}
+    <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+    function getCurrentMonth() {
+      const d = new Date();
+      return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0");
+    }
+
+    function formatMonth(key) {
+      if (!key) return "";
+      const parts = key.split("-");
+      return MONTHS[parseInt(parts[1])-1] + " " + parts[0];
+    }
+
+    function parseCSV(text) {
+      const lines = text.trim().split("\n");
+      if (lines.length < 2) return [];
+      const headers = parseCSVLine(lines[0]);
+      return lines.slice(1).map(function(line) {
+        const vals = parseCSVLine(line);
+        const obj = {};
+        headers.forEach(function(h, i) { obj[h.trim()] = (vals[i] || "").trim(); });
+        return obj;
+      }).filter(function(row) { return Object.values(row).some(function(v) { return v !== ""; }); });
+    }
+
+    function parseCSVLine(line) {
+      const result = [];
+      let current = "";
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (inQuotes) {
+          if (ch === '"' && line[i+1] === '"') { current += '"'; i++; }
+          else if (ch === '"') { inQuotes = false; }
+          else { current += ch; }
+        } else {
+          if (ch === '"') { inQuotes = true; }
+          else if (ch === ',') { result.push(current); current = ""; }
+          else { current += ch; }
+        }
+      }
+      result.push(current);
+      return result;
+    }
+
+    // Colors — kept in sync with styles.css
+    const C = {
+      card:       "#E4E4E4",
+      cardBorder: "#d5d3cd",
+      text:       "#333333",
+      textLight:  "#666666",
+      textMuted:  "#9b9a95",
+      accent:     "#333333",
+      green:      "#4a6b3a",
+      white:      "#FEFEFC",
+    };
+
+    const FONT       = "'Courier Prime', 'Courier New', monospace";
+    const FONT_SERIF = "'Libre Baskerville', Georgia, serif";
+
+    function MemberDetail() {
+      const [entries, setEntries] = useState([]);
+      const [loading, setLoading] = useState(true);
+      const [error, setError]     = useState(null);
+      const currentMonth = getCurrentMonth();
+
+      // Read member name from ?name= URL param
+      const params = new URLSearchParams(window.location.search);
+      const memberName = params.get("name") || "";
+
+      useEffect(function() {
+        if (!memberName) { setLoading(false); return; }
+
+        Promise.all([
+          fetch(SHEET_URLS.activityLog),
+          fetch(SHEET_URLS.tasksAndPoints),
+        ]).then(function(responses) {
+          if (!responses[0].ok || !responses[1].ok) throw new Error("Failed to fetch data");
+          return Promise.all([responses[0].text(), responses[1].text()]);
+        }).then(function(texts) {
+          const logRows  = parseCSV(texts[0]);
+          const taskRows = parseCSV(texts[1]);
+
+          // Build task → points lookup (fallback if sheet doesn't auto-calculate)
+          const taskMap = {};
+          taskRows.forEach(function(row) {
+            const name = row["Task"] || row["task"] || "";
+            const pts  = parseInt(row["Points"] || row["points"] || "0");
+            if (name) taskMap[name] = pts;
+          });
+
+          // Filter to this member, current month only
+          const memberEntries = logRows
+            .filter(function(row) {
+              const m = row["Member"] || row["member"] || "";
+              const month = row["Month"] || row["month"] || "";
+              return m === memberName && (!month || month === currentMonth);
+            })
+            .map(function(row) {
+              const task  = row["Task"] || row["task"] || "—";
+              const date  = row["Date"] || row["date"] || row["Month"] || row["month"] || "—";
+              const pointsCell = row["Points (auto)"] || row["points (auto)"] || row["Points"] || "";
+              let pts = parseInt(pointsCell);
+              if (isNaN(pts)) pts = taskMap[task] || 0;
+              return { task: task, date: date, points: pts };
+            });
+
+          setEntries(memberEntries);
+          setLoading(false);
+        }).catch(function(e) {
+          console.error(e);
+          setError("Could not load activity data.");
+          setLoading(false);
+        });
+      }, [memberName, currentMonth]);
+
+      const total = entries.reduce(function(sum, e) { return sum + e.points; }, 0);
+      const HR    = { border: "none", borderTop: "2px solid " + C.accent, margin: "40px 0" };
+
+      if (!memberName) return (
+        <div style={{ fontFamily: FONT, color: C.textMuted, padding: "40px 0" }}>
+          No member specified.{" "}
+          <a href="/leaderboard/" style={{ color: C.text }}>← Back to leaderboard</a>
+        </div>
+      );
+
+      if (loading) return (
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "40vh" }}>
+          <div style={{ fontSize: 13, letterSpacing: 6, color: C.textMuted, textTransform: "uppercase", fontFamily: FONT }}>
+            Loading...
+          </div>
+        </div>
+      );
+
+      if (error) return (
+        <div style={{ fontFamily: FONT, color: "#8b3a3a", padding: "40px 0" }}>
+          {error}{" "}
+          <a href="/leaderboard/" style={{ color: C.text }}>← Back to leaderboard</a>
+        </div>
+      );
+
+      return (
+        <div style={{ fontFamily: FONT, color: C.text, lineHeight: 1.7 }}>
+
+          {/* Back link */}
+          <a href="/leaderboard/" style={{
+            fontFamily: FONT, fontSize: 14, color: C.textLight,
+            textDecoration: "none", display: "inline-flex", alignItems: "baseline", gap: 6, marginBottom: 32,
+            transition: "opacity 0.2s",
+          }}
+            onMouseEnter={function(e) { e.currentTarget.style.opacity = "0.6"; }}
+            onMouseLeave={function(e) { e.currentTarget.style.opacity = "1"; }}>
+            ← Leaderboard
+          </a>
+
+          {/* Heading */}
+          <h2 className="section-title" style={{ marginBottom: 8 }}>{memberName}</h2>
+          <p style={{ fontFamily: FONT, fontSize: 19, color: C.textLight, marginBottom: 40 }}>
+            {formatMonth(currentMonth)}
+          </p>
+
+          <hr style={HR} />
+
+          {/* Activity table */}
+          {entries.length === 0 ? (
+            <p style={{ fontFamily: FONT_SERIF, fontStyle: "italic", color: C.textMuted, padding: "24px 0" }}>
+              No activity logged for {memberName} this month.
+            </p>
+          ) : (
+            <div style={{ marginBottom: 48 }}>
+
+              {/* Table header */}
+              <div style={{
+                display: "grid", gridTemplateColumns: "1fr 160px 60px",
+                padding: "0 4px 8px", borderBottom: "2px solid " + C.accent,
+                fontSize: 11, letterSpacing: 2, color: C.textMuted, textTransform: "uppercase", fontFamily: FONT,
+              }}>
+                <div>Task</div>
+                <div>Date</div>
+                <div style={{ textAlign: "right" }}>Pts</div>
+              </div>
+
+              {/* Rows */}
+              {entries.map(function(e, i) {
+                return (
+                  <div key={i} style={{
+                    display: "grid", gridTemplateColumns: "1fr 160px 60px",
+                    padding: "10px 4px", borderBottom: "1px solid " + C.cardBorder,
+                    fontSize: 14,
+                  }}>
+                    <div style={{ fontFamily: FONT }}>{e.task}</div>
+                    <div style={{ fontFamily: FONT, color: C.textLight }}>{e.date}</div>
+                    <div style={{ fontFamily: FONT, fontWeight: 700, color: C.green, textAlign: "right" }}>+{e.points}</div>
+                  </div>
+                );
+              })}
+
+              {/* Total row */}
+              <div style={{
+                display: "grid", gridTemplateColumns: "1fr 160px 60px",
+                padding: "12px 4px", borderTop: "2px solid " + C.accent, marginTop: 4,
+                fontSize: 15,
+              }}>
+                <div style={{ fontFamily: FONT_SERIF, fontWeight: 700 }}>Total</div>
+                <div />
+                <div style={{ fontFamily: FONT, fontWeight: 700, fontSize: 18, textAlign: "right" }}>{total}</div>
+              </div>
+
+            </div>
+          )}
+
+        </div>
+      );
+    }
+
+    ReactDOM.render(React.createElement(MemberDetail), document.getElementById("member-root"));
+    </script>
+    {% endraw %}
+
+</body>
+</html>
