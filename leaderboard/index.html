@@ -345,6 +345,7 @@
               <div style={{ flex: 1 }}>Name</div>
               <div style={{ width: 120, textAlign: "center" }}>Progress</div>
               <div style={{ width: 44, textAlign: "right" }}>Pts</div>
+              <div style={{ width: 60 }} />
             </div>
 
             {sorted.map(function(entry, i) {
@@ -390,6 +391,9 @@
                   </div>
                   <div style={{ width: 44, textAlign: "right", fontSize: 15, fontWeight: 700, color: isTop3 ? rc : C.textLight, fontFamily: FONT }}>
                     {pts}
+                  </div>
+                  <div style={{ width: 60, textAlign: "right", fontSize: 11, color: C.textMuted, fontFamily: FONT, letterSpacing: 1, whiteSpace: "nowrap" }}>
+                    View →
                   </div>
                 </a>
               );
