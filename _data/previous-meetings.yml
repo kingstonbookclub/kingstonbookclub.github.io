@@ -6,6 +6,10 @@ year: 2026
 
 meetings:
 
+  - date: "APR 18"
+    title: "Meeting #15 - Short Form Reads Pt. 4"
+    blog_url: "/blog/2026/04/18/meeting-recap-april-18"
+
   - date: "APR 11"
     title: "Meeting #14 - Why Nations Fail, Chapters 9 & 10"
     blog_url: "/blog/2026/04/11/meeting-recap-april-11"
@@ -17,7 +21,3 @@ meetings:
   - date: "JAN 31"
     title: "Meeting #4 - The Righteous Mind, Chapters 5 & 6"
     blog_url: "/blog/2026/01/31/meeting-recap-jan-31"
-
-  - date: "JAN 24"
-    title: "Meeting #3 - Short Form Reads discussion"
-    blog_url: "/blog/2026/01/24/meeting-recap-january-24"
