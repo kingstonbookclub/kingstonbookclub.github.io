@@ -1,14 +1,14 @@
 # Short Reading Section
 # Set enabled to true to show this section, false to hide it
-enabled: false
+enabled: true
 
 # List of articles
 articles:
-  - title: "US's New Scramble for Africa is Biomedical Imperialism"
-    url: "https://www.aljazeera.com/opinions/2026/3/13/uss-new-scramble-for-africa-is-biomedical-imperialism"
+  - title: "Looking for Alice"
+    url: "https://www.henrikkarlsson.xyz/p/looking-for-alice"
 
-  - title: "Mouse Heaven or Mouse Hell?"
-    url: "https://www.sciencehistory.org/stories/magazine/mouse-heaven-or-mouse-hell/"
+  - title: "The Dark Side of Fandom"
+    url: "https://www.tandfonline.com/doi/full/10.1080/15213269.2025.2562009#abstract"
 
-  - title: "Neuroplasticity: Rewiring Your Brain"
-    url: "https://ixcarus.substack.com/p/neuroplasticity-rewiring-your-brain"
+  - title: "Why Birth Rates Are Falling Everywhere All At Once"
+    url: "https://archive.is/20260518005917/https://www.ft.com/content/fba35eca-df3a-4ad6-b42d-eb08eb7c9ad3"
