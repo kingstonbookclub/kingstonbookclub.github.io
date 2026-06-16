@@ -1,14 +1,14 @@
 # Short Reading Section
 # Set enabled to true to show this section, false to hide it
-enabled: false
+enabled: true
 
 # List of articles
 articles:
-  - title: "Looking for Alice"
-    url: "https://www.henrikkarlsson.xyz/p/looking-for-alice"
+  - title: "Hell is the Absence of God by Ted Chiang (22 pages)"
+    url: "https://static1.squarespace.com/static/50e08e65e4b0c2f4976972df/t/588a2e70725e25b6981e64d1/1485450864394/Chiang+Hell+Is+the+Absence+of+God.pdf"
 
-  - title: "The Dark Side of Fandom"
-    url: "https://www.tandfonline.com/doi/full/10.1080/15213269.2025.2562009#abstract"
+  - title: "Kaho by Haruki Murakami (12 pages)"
+    url: "https://archive.is/4sLvf"
 
-  - title: "Why Birth Rates Are Falling Everywhere All At Once"
-    url: "https://archive.is/20260518005917/https://www.ft.com/content/fba35eca-df3a-4ad6-b42d-eb08eb7c9ad3"
+  - title: "Hills Like White Elephants by Ernest Hemingway (17 pages)"
+    url: "https://www.rvclibrary.org/wp-content/uploads/2022/04/May-Short-Stories.pdf"
