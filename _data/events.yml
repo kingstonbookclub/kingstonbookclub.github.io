@@ -5,4 +5,13 @@ events:
     description: "Short Form Reads - Fiction Edition!"
 
   - date: "JUN 27, 2026"
-    description: "Crime and Punishment (Chapters 1 & 2)"
+    description: "Crime and Punishment (Part 1)"
+
+  - date: "JUL 4, 2026"
+    description: "Crime and Punishment (Part 2)"
+
+  - date: "JUL 11, 2026"
+    description: "Crime and Punishment (Part 3)"
+
+  - date: "JUL 18, 2026"
+    description: "Crime and Punishment (Part 4)"
