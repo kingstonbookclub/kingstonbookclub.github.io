@@ -6,6 +6,10 @@ year: 2026
 
 meetings:
 
+  - date: "JUN 20"
+    title: "Meeting #24 - Short-form Fiction Edition"
+    blog_url: "/blog/2026/06/20/meeting-recap-june-20"
+
   - date: "JUN 13"
     title: "Meeting #23 - Men Who Hate Women, Chapters 9 & 10"
     blog_url: "/blog/2026/06/13/meeting-recap-june-13"
@@ -17,7 +21,3 @@ meetings:
   - date: "MAY 30"
     title: "Men Who Hate Women, Chapters 5 & 6"
     blog_url: "/blog/2026/05/30/meeting-recap-may-30"
-
-  - date: "MAY 2"
-    title: "Meeting #17 - Why Nations Fail, Chapters 13-15"
-    blog_url: "/blog/2026/05/02/meeting-recap-may-02"

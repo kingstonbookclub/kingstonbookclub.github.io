@@ -1,6 +1,6 @@
 # Short Reading Section
 # Set enabled to true to show this section, false to hide it
-enabled: true
+enabled: false
 
 # List of articles
 articles:
