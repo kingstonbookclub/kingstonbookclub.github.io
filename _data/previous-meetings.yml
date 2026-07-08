@@ -6,6 +6,10 @@ year: 2026
 
 meetings:
 
+  - date: "JUL 4"
+    title: "Meeting #26 - Crime and Punishment, Part 2"
+    blog_url: "/blog/2026/07/04/meeting-recap-july-04"
+
   - date: "JUN 27"
     title: "Meeting #25 - Crime and Punishment, Part 1"
     blog_url: "/blog/2026/06/27/meeting-recap-june-27"
@@ -17,7 +21,3 @@ meetings:
   - date: "JUN 13"
     title: "Meeting #23 - Men Who Hate Women, Chapters 9 & 10"
     blog_url: "/blog/2026/06/13/meeting-recap-june-13"
-
-  - date: "JUN 6"
-    title: "Men Who Hate Women, Chapters 7 & 8"
-    blog_url: "/blog/2026/06/06/meeting-recap-june-06"
