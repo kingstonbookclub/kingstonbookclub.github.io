@@ -1,8 +1,14 @@
 # Upcoming Events
 events:
 
-  - date: "JUL 11, 2026"
-    description: "Crime and Punishment (Part 3)"
-
-  - date: "JUL 18, 2026"
+  - date: "JUL 26, 2026"
     description: "Crime and Punishment (Part 4)"
+
+  - date: "AUG 2, 2026"
+    description: "Crime and Punishment (Part 5)"
+
+  - date: "AUG 9, 2026"
+    description: "Crime and Punishment (Part 6)"
+
+  - date: "AUG 16, 2026"
+    description: "Crime and Punishment (Epilogue)"
