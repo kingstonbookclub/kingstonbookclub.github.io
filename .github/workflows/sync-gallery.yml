@@ -1,0 +1,67 @@
+name: Sync gallery from Google Drive
+
+# Reads the shared "KBC Website Gallery" Drive folder and updates the homepage
+# gallery. Members only ever touch Drive.
+#
+# Drive layout: one subfolder per event, named "YYYY-MM-DD Event name".
+# The folder name becomes the caption; a photo's Drive description overrides it.
+
+on:
+  schedule:
+    # 7am and 7pm Jamaica time (UTC-5).
+    - cron: "0 12,0 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview only - show what would change without committing"
+        type: boolean
+        default: false
+
+# Stop two runs from committing over each other.
+concurrency:
+  group: sync-gallery
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    env:
+      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+      # Accepts a pasted Drive share link or a bare folder ID.
+      DRIVE_FOLDER_ID: ${{ vars.DRIVE_FOLDER_ID }}
+      # How much of the gallery to keep. Bump these if you want more history.
+      MAX_EVENTS: "6"
+      MAX_PER_EVENT: "3"
+      # Photos dropped straight into the folder, no subfolder. Published uncaptioned.
+      MAX_LOOSE: "4"
+      DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Sync
+        run: python scripts/sync_gallery.py
+
+      - name: Commit changes
+        if: ${{ !inputs.dry_run }}
+        run: |
+          git config user.name "KBC Gallery Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _data/gallery.yml _data/gallery-sync.json images/gallery
+          if git diff --staged --quiet; then
+            echo "Gallery already up to date."
+            exit 0
+          fi
+          git commit -m "Gallery: sync from Google Drive"
+          git push
+          echo "Pushed. The site rebuilds in a minute or two."

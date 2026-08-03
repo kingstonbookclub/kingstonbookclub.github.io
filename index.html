@@ -132,7 +132,7 @@
                 <div class="gallery-container">
                     <div class="gallery-image-wrapper">
                         {% for image in site.data.gallery.images %}
-                        <img src="{{ site.baseurl }}{{ image.path }}" alt="{{ image.alt }}" class="gallery-image {% if forloop.first %}active{% endif %}" data-caption="{{ image.caption }}">
+                        <img src="{{ site.baseurl }}{{ image.path }}" alt="{{ image.alt }}" class="gallery-image {% if forloop.first %}active{% endif %}" data-caption="{{ image.caption }}"{% if forloop.index > 2 %} loading="lazy" decoding="async"{% endif %}>
                         {% endfor %}
                     </div>
                     

@@ -1,0 +1,15 @@
+# Pinned gallery photos.
+#
+# Everything in _data/gallery.yml comes from Google Drive and rolls off as new
+# meetings are added. Anything listed here is appended after those and stays
+# forever - use it for favourites you never want to lose.
+#
+# The image files for these live in /images/ (not /images/gallery/, which the
+# sync wipes clean on every run).
+#
+# Leave the list empty if you don't need any.
+
+images: []
+  # - path: "/images/IMG_2044.jpeg"
+  #   alt: "Our first meeting!"
+  #   caption: "Meeting #1 - January 10th 2026."
