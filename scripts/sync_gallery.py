@@ -92,8 +92,13 @@ def fail(msg):
 # --------------------------------------------------------------------------
 
 
-def drive_list(parent_id):
-    """List every child of a Drive folder, following pagination."""
+def drive_list(parent_id, required=True):
+    """List every child of a Drive folder, following pagination.
+
+    When required is False an unreadable folder is skipped with a warning rather
+    than killing the run. That happens with shortcuts pointing into folders that
+    were never shared - the shortcut is visible but its target is not.
+    """
     items = []
     page_token = None
     while True:
@@ -113,6 +118,12 @@ def drive_list(parent_id):
             params["pageToken"] = page_token
 
         resp = requests.get(DRIVE_API, params=params, timeout=60)
+        if resp.status_code in (403, 404) and not required:
+            log(
+                f"    ! Can't read folder {parent_id} (HTTP {resp.status_code}). If "
+                "this is a shortcut, the folder it points at isn't shared. Skipping."
+            )
+            return items
         if resp.status_code == 403:
             fail(
                 "Drive API returned 403. Check that the API key has the Drive API "
@@ -148,11 +159,14 @@ def resolve_shortcut(item):
 
 
 def drive_download(file_id):
+    """Fetch a photo's bytes, or None if Drive won't share it with us."""
     resp = requests.get(
         f"{DRIVE_API}/{file_id}",
         params={"alt": "media", "key": API_KEY, "supportsAllDrives": "true"},
         timeout=300,
     )
+    if resp.status_code in (403, 404):
+        return None
     resp.raise_for_status()
     return resp.content
 
@@ -278,7 +292,7 @@ def collect_photos():
     for event in kept_events:
         log(f"  Event: {event['folder_name']}")
         files = []
-        for item in drive_list(event["id"]):
+        for item in drive_list(event["id"], required=False):
             resolved = resolve_shortcut(item)
             if not resolved:
                 continue
@@ -407,15 +421,34 @@ def main():
     IMAGE_DIR.mkdir(parents=True, exist_ok=True)
 
     downloaded = skipped = 0
+    published = []
     for photo in photos:
         dest = IMAGE_DIR / photo["local"]
         was = previous.get(photo["drive_id"])
         if dest.exists() and was and was.get("modified") == photo["modified"]:
             skipped += 1
+            published.append(photo)
             continue
+
         log(f"  Downloading {photo['drive_name']}")
-        process_image(drive_download(photo["drive_id"]), dest)
+        raw = drive_download(photo["drive_id"])
+        if raw is None:
+            # Usually a shortcut whose target was never shared. Leave it out of
+            # the gallery rather than publishing a broken image.
+            log(
+                f"    ! Drive won't serve '{photo['drive_name']}'. If it's a "
+                "shortcut, share the original too, or copy the photo in instead. "
+                "Skipping it."
+            )
+            continue
+        process_image(raw, dest)
         downloaded += 1
+        published.append(photo)
+
+    if not published:
+        fail("Every photo failed to download - refusing to publish an empty gallery.")
+
+    photos = published
 
     # Drive is the source of truth, so anything no longer selected gets removed.
     keep = {p["local"] for p in photos}
