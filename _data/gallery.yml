@@ -1,68 +1,29 @@
-# Gallery Images
-# Add or remove images from this list
+# GENERATED FILE - DO NOT EDIT BY HAND.
+#
+# This is rewritten by .github/workflows/sync-gallery.yml from the shared
+# Google Drive folder. Any edit here is overwritten on the next sync.
+#
+# To change the gallery, add or remove photos in the Drive folder.
+# To pin a photo permanently, use _data/gallery-extra.yml instead.
+#
+# Last synced: 2026-08-03 16:17 UTC
 
 images:
-  - path: "/images/KBCHolywell1.jpeg"
-    alt: "KBC Hills & Valleys Camping Trip #1"
-    caption: "KBC Hills & Valleys Camping Trip @ Holywell - April 3rd, 2026"
-  
-  - path: "/images/KBCHolywell2.jpeg"
-    alt: "KBC Hills & Valleys Camping Trip #2"
-    caption: "KBC Hills & Valleys Camping Trip @ Holywell - April 3rd, 2026"
-
-  - path: "/images/IMG_4110.jpeg"
-    alt: "Book club meeting 8"
-    caption: "Meeting #8 @ Ragamuffin Café - February 28th, 2026"
-  
-  - path: "/images/IMG_4157.jpeg"
-    alt: "KBC @ Jamaica Book Festival"
-    caption: "KBC @ Jamaica Book Festival - February 28th, 2026"
-
-  - path: "/images/IMG_4122.jpeg"
-    alt: "Zanya"
-    caption: "Zanya, KBC Meeting #8 - February 28th, 2026"
-
-  - path: "/images/DSC_0423.jpg"
-    alt: "Book club meeting 3"
-    caption: "Meeting #3 - January 24th, 2026"
-
-  - path: "/images/IMG_2051.jpeg"
-    alt: "Kimberly"
-    caption: "Our daring icebreaker champ Kimberly!"
-  
-  - path: "/images/DSC_0387.jpg"
-    alt: "KBC Meeting #2"
-    caption: "Meeting #2 - January 17th, 2026"
-  
-  - path: "/images/DSC_0385.jpg"
-    alt: "Book club meeting 3"
-    caption: "Is this our first friend group?"
-  
-  - path: "/images/DSC_0415.jpg"
-    alt: "Book club meeting 3"
-    caption: "Meeting #3 - January 24th, 2026"
-
-  - path: "/images/DSC_0417.jpg"
-    alt: "Book club meeting 3"
-    caption: "Meeting #3 - January 24th, 2026"
-
-  - path: "/images/DSC_0441.jpg"
-    alt: "Jenell and Jordan"
-    caption: "Jenell, The Best Moderator and Jordan (also custom shirts!)"
-  
-  - path: "/images/DSC_0425.jpg"
-    alt: "Book club meeting 3"
-    caption: "Meeting #3 - January 24th, 2026"
-
-  - path: "/images/DSC_0412.jpg"
-    alt: "Book club meeting 3"
-    caption: "Gripping discussion in our 3rd meeting."
-  
-  - path: "/images/DSC_0397.jpg"
-    alt: "Social media boss Renée"
-    caption: "Social media boss Renée, Meeting #2 - January 17th, 2026"
-
-  - path: "/images/IMG_2044.jpeg"
-    alt: "Our first meeting!"
-    caption: "Meeting #1 - January 10th 2026."
-
+- path: /images/gallery/kbc-meeting-21-may-30th-2026-1Zw8wv3iM1.jpg
+  alt: 'KBC Meeting #21 - May 30th 2026'
+  caption: 'KBC Meeting #21 - May 30th 2026'
+- path: /images/gallery/kbc-meeting-25-june-27-2026-15St4hBrTr.jpg
+  alt: 'KBC Meeting #25 - June 27 2026'
+  caption: 'KBC Meeting #25 - June 27 2026'
+- path: /images/gallery/kbc-meeting-25-june-27-2026-1cFxiwpfFv.jpg
+  alt: 'KBC Meeting #25 - June 27 2026'
+  caption: 'KBC Meeting #25 - June 27 2026'
+- path: /images/gallery/kbc-meeting-25-june-27-2026-1vc_87BqNL.jpg
+  alt: 'KBC Meeting #25 - June 27 2026'
+  caption: 'KBC Meeting #25 - June 27 2026'
+- path: /images/gallery/kbc-meeting-29-july-25-2026-1gi8VDkUco.jpg
+  alt: 'KBC Meeting #29 - July 25 2026'
+  caption: 'KBC Meeting #29 - July 25 2026'
+- path: /images/gallery/kbc-meeting-30-aug-1st-2026-15MCbylXon.jpg
+  alt: 'KBC Meeting #30 - Aug 1st 2026'
+  caption: 'KBC Meeting #30 - Aug 1st 2026'
