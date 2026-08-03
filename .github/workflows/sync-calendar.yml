@@ -1,0 +1,65 @@
+name: Sync events from Google Calendar
+
+# Publishes the next few meetings from the club's public Google Calendar into
+# _data/events.yml, and points "Currently Reading" at the next one.
+#
+# The event title is used verbatim on the site, e.g.
+#   Crime and Punishment (Part 6 - first half)
+# and whatever is in parentheses becomes the chapters line.
+
+on:
+  schedule:
+    # 6am Jamaica time (UTC-5).
+    - cron: "0 11 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview only - show what would change without committing"
+        type: boolean
+        default: false
+
+# Shared with the gallery sync so the two never push over each other.
+concurrency:
+  group: site-content-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    env:
+      CALENDAR_ICS_URL: ${{ vars.CALENDAR_ICS_URL }}
+      # How many upcoming meetings to show on the homepage.
+      MAX_UPCOMING: "4"
+      # Set to "false" to leave _data/current-reading.yml alone.
+      UPDATE_CURRENT_READING: "true"
+      DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Sync
+        run: python scripts/sync_calendar.py
+
+      - name: Commit changes
+        if: ${{ !inputs.dry_run }}
+        run: |
+          git config user.name "KBC Calendar Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _data/events.yml _data/current-reading.yml
+          if git diff --staged --quiet; then
+            echo "Events already up to date."
+            exit 0
+          fi
+          git commit -m "Events: sync from Google Calendar"
+          git push
+          echo "Pushed. The site rebuilds in a minute or two."

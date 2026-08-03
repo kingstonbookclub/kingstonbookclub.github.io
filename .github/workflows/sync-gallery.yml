@@ -17,9 +17,9 @@ on:
         type: boolean
         default: false
 
-# Stop two runs from committing over each other.
+# Shared with the calendar sync so the two never push over each other.
 concurrency:
-  group: sync-gallery
+  group: site-content-sync
   cancel-in-progress: false
 
 jobs:
