@@ -1,9 +1,14 @@
 # Current Reading Book Information
-book_title: "Crime and Punishment"
-author: "Fyodor Dostoevsky"
-chapters: "Part 5"
-current_date: "August 2nd, 2026"
-book_image: "/images/book.jpg"
+#
+# current_date and chapters are set automatically from the next event on
+# the club calendar. The book title, author, image and links are NOT -
+# edit those here when starting a new book.
+
+book_title: Crime and Punishment
+author: Fyodor Dostoevsky
+chapters: first half
+current_date: August 8th, 2026
+book_image: /images/book.jpg
 quote: false
-goodreads_link: "https://www.goodreads.com/book/show/7144.Crime_and_Punishment"
-amazon_link: "https://www.amazon.com/Crime-Punishment-Fyodor-Dostoevsky/dp/1935814109"
+goodreads_link: https://www.goodreads.com/book/show/7144.Crime_and_Punishment
+amazon_link: https://www.amazon.com/Crime-Punishment-Fyodor-Dostoevsky/dp/1935814109

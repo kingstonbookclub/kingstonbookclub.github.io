@@ -1,11 +1,12 @@
-# Upcoming Events
+# GENERATED FILE - DO NOT EDIT BY HAND.
+#
+# Rewritten by .github/workflows/sync-calendar.yml from the club's Google
+# Calendar. To change what's here, add or edit the event in the calendar.
+
 events:
-
-  - date: "AUG 8, 2026"
-    description: "Crime and Punishment (Part 6 - first half)"
-
-  - date: "AUG 15, 2026"
-    description: "Crime and Punishment (Part 6 - second half and Epilogue)"
-  
-  - date: "AUG 22, 2026"
-    description: "Short-form Science Week"
+- date: AUG 8, 2026
+  description: Crime and Punishment Part 6 (first half)
+- date: AUG 15, 2026
+  description: Crime and Punishment Part 6 (second half) and Epilogue
+- date: AUG 22, 2026
+  description: Short-form Science Week
