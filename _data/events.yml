@@ -4,7 +4,5 @@
 # Calendar. To change what's here, add or edit the event in the calendar.
 
 events:
-- date: AUG 29, 2026
-  description: The Data Detective - Intro and Chapter 1
 - date: SEP 5, 2026
   description: The Data Detective Chapters 2 & 3
