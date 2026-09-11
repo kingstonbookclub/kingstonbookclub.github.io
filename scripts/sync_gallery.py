@@ -27,7 +27,7 @@ import os
 import re
 import sys
 import unicodedata
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 import requests
@@ -77,6 +77,19 @@ DRY_RUN = os.environ.get("DRY_RUN", "").lower() in ("1", "true", "yes")
 
 DATED_FOLDER = re.compile(r"^(\d{4})-(\d{2})-(\d{2})[\s_-]+(.+)$")
 
+# Dates the way people actually type them in folder names: "May 30th 2026",
+# "Aug 1st, 2026", "30 May 2026", or just "June 27".
+MONTH_NAMES = [
+    "january", "february", "march", "april", "may", "june",
+    "july", "august", "september", "october", "november", "december",
+]
+_MONTH = r"([A-Za-z]{3,9})\.?"
+_DAY = r"(\d{1,2})(?:st|nd|rd|th)?"
+_YEAR = r"(?:,?\s+(\d{4}))?"
+MONTH_FIRST = re.compile(rf"\b{_MONTH}\s+{_DAY}\b{_YEAR}", re.IGNORECASE)
+DAY_FIRST = re.compile(rf"\b{_DAY}\s+(?:of\s+)?{_MONTH}\b{_YEAR}", re.IGNORECASE)
+MEETING_NUMBER = re.compile(r"#\s*(\d+)")
+
 
 def log(msg):
     print(msg, flush=True)
@@ -107,7 +120,8 @@ def drive_list(parent_id, required=True):
             "key": API_KEY,
             "fields": (
                 "nextPageToken, files(id, name, mimeType, description, "
-                "modifiedTime, size, shortcutDetails)"
+                "createdTime, modifiedTime, size, shortcutDetails, "
+                "imageMediaMetadata(time))"
             ),
             "pageSize": 200,
             "orderBy": "name",
@@ -182,17 +196,73 @@ def ordinal(n):
     return f"{n}{ {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th') }"
 
 
-def parse_event_folder(name):
-    """'2026-04-03 Meeting #8 @ Ragamuffin' -> (date(2026,4,3), 'Meeting #8 @ Ragamuffin')"""
-    match = DATED_FOLDER.match(name.strip())
-    if not match:
-        return None, name.strip()
-    year, month, day, title = match.groups()
+def month_number(word):
+    """'Aug', 'august', 'Sept' -> 8, 8, 9. Anything else -> None."""
+    word = word.lower()
+    for index, name in enumerate(MONTH_NAMES, 1):
+        if name.startswith(word):
+            return index
+    return None
+
+
+def make_date(year, month, day):
+    """Build a date, guessing the year when the folder name left it out."""
     try:
-        event_date = date(int(year), int(month), int(day))
+        if year:
+            return date(int(year), month, int(day))
+        today = date.today()
+        guess = date(today.year, month, int(day))
+        # "Dec 20" written in January means last December, not next.
+        if guess > today + timedelta(days=7):
+            guess = date(today.year - 1, month, int(day))
+        return guess
     except ValueError:
-        return None, name.strip()
-    return event_date, title.strip()
+        return None
+
+
+def date_in_text(text):
+    """Find a written-out date anywhere in a folder name."""
+    for match in MONTH_FIRST.finditer(text):
+        word, day, year = match.groups()
+        month = month_number(word)
+        if month and (found := make_date(year, month, day)):
+            return found
+    for match in DAY_FIRST.finditer(text):
+        day, word, year = match.groups()
+        month = month_number(word)
+        if month and (found := make_date(year, month, day)):
+            return found
+    return None
+
+
+def parse_event_folder(name):
+    """Work out an event folder's date and title.
+
+    Returns (date, title, date_is_prefix). A "2026-04-03 Title" prefix is
+    stripped from the title and re-added to the caption in a readable form.
+    A date written anywhere else - "KBC Meeting #21 - May 30th 2026" - is left
+    in the title as the member wrote it and only used for ordering.
+    """
+    name = name.strip()
+    match = DATED_FOLDER.match(name)
+    if match:
+        year, month, day, title = match.groups()
+        found = make_date(year, int(month), day)
+        if found:
+            return found, title.strip(), True
+    return date_in_text(name), name, False
+
+
+def parse_drive_time(value):
+    """Drive timestamps ('2026-05-30T14:22:01.000Z') or EXIF ones ('2026:05:30 14:22:01')."""
+    if not value:
+        return None
+    try:
+        if value[4] == ":":
+            return datetime.strptime(value[:19], "%Y:%m:%d %H:%M:%S")
+        return datetime.fromisoformat(value.replace("Z", "+00:00")).replace(tzinfo=None)
+    except (ValueError, IndexError):
+        return None
 
 
 def build_caption(event_date, title):
@@ -249,18 +319,26 @@ def collect_photos():
         resolved = resolve_shortcut(item)
         if not resolved or resolved.get("mimeType") != FOLDER_MIME:
             continue
-        event_date, title = parse_event_folder(item["name"])
+        event_date, title, date_is_prefix = parse_event_folder(item["name"])
         if event_date is None:
+            created = parse_drive_time(item.get("createdTime"))
+            event_date = created.date() if created else date.min
             log(
-                f"  ! Folder '{item['name']}' has no leading YYYY-MM-DD date. "
-                "It will sort to the bottom and its caption won't be dated."
+                f"  ! Folder '{item['name']}' has no date in its name, so it's "
+                "ordered by when the folder was made in Drive. Put the meeting "
+                "date in the name (e.g. 'May 30th 2026') to be sure it sorts right."
             )
+        number = MEETING_NUMBER.search(item["name"])
         events.append(
             {
                 "id": resolved["id"],
                 "folder_name": item["name"],
                 "date": event_date,
+                "number": int(number.group(1)) if number else 0,
                 "title": title,
+                # Only a "2026-04-03 Title" prefix gets a reformatted date in the
+                # caption; otherwise the name already reads the way it was typed.
+                "caption": build_caption(event_date, title) if date_is_prefix else title,
             }
         )
 
@@ -272,7 +350,14 @@ def collect_photos():
         if not resolved or not resolved.get("mimeType", "").startswith("image/"):
             continue
         loose.append({**resolved, "name": item["name"], "description": item.get("description")})
-    loose.sort(key=lambda f: f["name"].lower())
+    # Newest first: when the photo was taken if the camera recorded it, otherwise
+    # when it was uploaded.
+    loose.sort(
+        key=lambda f: parse_drive_time((f.get("imageMediaMetadata") or {}).get("time"))
+        or parse_drive_time(f.get("createdTime"))
+        or datetime.min,
+        reverse=True,
+    )
 
     if not events and not loose:
         fail(
@@ -281,8 +366,9 @@ def collect_photos():
             "'2026-04-03 Meeting #9 @ Ragamuffin' to caption them."
         )
 
-    # Newest event first; undated folders fall to the bottom.
-    events.sort(key=lambda e: (e["date"] is not None, e["date"] or date.min), reverse=True)
+    # Newest event first. Two folders on the same date fall back to the higher
+    # meeting number.
+    events.sort(key=lambda e: (e["date"], e["number"]), reverse=True)
 
     kept_events = events[:MAX_EVENTS]
     for dropped in events[MAX_EVENTS:]:
@@ -311,7 +397,7 @@ def collect_photos():
 
         for item in files[:MAX_PER_EVENT]:
             description = (item.get("description") or "").strip()
-            caption = description or build_caption(event["date"], event["title"])
+            caption = description or event["caption"]
             photos.append(
                 {
                     "drive_id": item["id"],
@@ -329,8 +415,8 @@ def collect_photos():
         log(f"  Loose photos (no caption)")
         if len(loose) > MAX_LOOSE:
             log(
-                f"    ({len(loose)} loose photos; taking the first {MAX_LOOSE} by "
-                "filename. File them into event subfolders, or raise MAX_LOOSE.)"
+                f"    ({len(loose)} loose photos; taking the newest {MAX_LOOSE}. "
+                "File them into event subfolders, or raise MAX_LOOSE.)"
             )
         for item in loose[:MAX_LOOSE]:
             description = (item.get("description") or "").strip()
