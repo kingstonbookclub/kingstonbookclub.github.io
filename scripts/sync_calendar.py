@@ -14,10 +14,17 @@ Whatever is in parentheses becomes the "chapters" line under Currently Reading
 ("Part 6 - first half"). A title with no parentheses - "Short-form Science Week"
 - still lists as an event but leaves Currently Reading alone.
 
+Short-form reads weeks are driven from the same calendar entry. When the next
+event's title mentions "short form" or "short reads", the article list is read
+out of that event's *description* - one article per line, with its link - and
+published to _data/short-reading.yml with the section switched on. Once a normal
+book week is next again, the section switches itself back off.
+
 Needs CALENDAR_ICS_URL (repository variable). A public Google Calendar's iCal
 address needs no API key.
 """
 
+import html
 import os
 import re
 import sys
@@ -33,10 +40,16 @@ from icalendar import Calendar
 REPO_ROOT = Path(__file__).resolve().parent.parent
 EVENTS_YML = REPO_ROOT / "_data" / "events.yml"
 CURRENT_YML = REPO_ROOT / "_data" / "current-reading.yml"
+SHORT_YML = REPO_ROOT / "_data" / "short-reading.yml"
 
 ICS_URL = os.environ.get("CALENDAR_ICS_URL", "").strip()
 MAX_UPCOMING = int(os.environ.get("MAX_UPCOMING", "4"))
 UPDATE_CURRENT_READING = os.environ.get("UPDATE_CURRENT_READING", "true").lower() in (
+    "1",
+    "true",
+    "yes",
+)
+UPDATE_SHORT_READS = os.environ.get("UPDATE_SHORT_READS", "true").lower() in (
     "1",
     "true",
     "yes",
@@ -48,6 +61,30 @@ DRY_RUN = os.environ.get("DRY_RUN", "").lower() in ("1", "true", "yes")
 TZ = ZoneInfo("America/Jamaica")
 
 PARENTHETICAL = re.compile(r"\(([^)]+)\)")
+
+# "Short-form Poetry Week", "Short Form Reads", "short reads". Requiring the
+# second word keeps a book like "A Short History of Nearly Everything" from
+# being mistaken for a short-reads week.
+SHORT_WEEK = re.compile(r"short[\s-]*(form|read)", re.IGNORECASE)
+
+URL = re.compile(r"https?://[^\s<>\"']+")
+LIST_PREFIX = re.compile(r"^\s*(?:\d+\s*[.)\-]|[-*\u2022])\s*")
+TRAILING_SEP = re.compile(r"[\s\-\u2013\u2014:;,]+$")
+INVISIBLE = re.compile(r"[\u200b-\u200f\u2060-\u2064\ufeff]")
+
+# Links Google Calendar or a member adds for the meeting itself, not readings.
+NOT_AN_ARTICLE = (
+    "meet.google.com",
+    "calendar.google.com",
+    "zoom.us",
+    "teams.microsoft.com",
+    "teams.live.com",
+    "webex.com",
+    "maps.google.com",
+    "goo.gl/maps",
+    "wa.me",
+    "chat.whatsapp.com",
+)
 
 
 def log(msg):
@@ -110,7 +147,13 @@ def fetch_events():
         if not title:
             log(f"  ! Skipping an untitled event on {starts}")
             continue
-        events.append({"date": starts, "title": title})
+        events.append(
+            {
+                "date": starts,
+                "title": title,
+                "description": str(occurrence.get("DESCRIPTION") or ""),
+            }
+        )
 
     events.sort(key=lambda e: e["date"])
     return events
@@ -168,6 +211,114 @@ def update_current_reading(next_event):
     return data
 
 
+def clean_description(raw):
+    """Flatten a calendar description to plain lines of text."""
+    text = str(raw or "")
+    # Google sometimes stores descriptions as HTML. Keep link targets by
+    # rewriting <a href="URL">Text</a> as "Text URL" before dropping tags.
+    text = re.sub(
+        r'<a\s[^>]*href="([^"]+)"[^>]*>(.*?)</a>', r"\2 \1", text, flags=re.I | re.S
+    )
+    text = re.sub(r"<br\s*/?>|</(?:p|div|li|tr)>", "\n", text, flags=re.I)
+    text = re.sub(r"<[^>]+>", "", text)
+    text = html.unescape(text)
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    # Pastes out of WhatsApp carry invisible separator characters.
+    return INVISIBLE.sub("", text)
+
+
+def parse_articles(description):
+    """Pull "title + link" pairs out of a calendar event's description.
+
+    Accepts the shape people actually paste - a numbered title on one line and
+    its link on the next, or both on the same line.
+    """
+    lines = [LIST_PREFIX.sub("", line).strip() for line in clean_description(description).split("\n")]
+
+    articles = []
+    pending_title = ""
+    for line in lines:
+        found = [
+            url.rstrip(".,;:)")
+            for url in URL.findall(line)
+            if not any(skip in url.lower() for skip in NOT_AN_ARTICLE)
+        ]
+        if not found:
+            # A line with no link is the title for the link on a following line.
+            if line and not URL.search(line):
+                pending_title = line
+            continue
+        title = TRAILING_SEP.sub("", URL.sub("", line)).strip() or pending_title
+        for url in found:
+            articles.append({"title": title or url, "url": url})
+        pending_title = ""
+
+    seen = set()
+    unique = []
+    for article in articles:
+        if article["url"] in seen:
+            continue
+        seen.add(article["url"])
+        unique.append(article)
+    return unique
+
+
+def short_reads_for(event):
+    """(is this a short-reads week, the articles listed on it)"""
+    if not SHORT_WEEK.search(event["title"]):
+        return False, []
+    return True, parse_articles(event.get("description"))
+
+
+def write_short_reading(enabled, articles):
+    existing = yaml.safe_load(SHORT_YML.read_text(encoding="utf-8")) or {}
+    data = {
+        "enabled": enabled,
+        # Keep the previous list when switching off, so it is not lost.
+        "articles": articles or existing.get("articles") or [],
+    }
+    header = (
+        "# GENERATED FILE - DO NOT EDIT BY HAND.\n"
+        "#\n"
+        "# Rewritten by .github/workflows/sync-calendar.yml. The section switches on\n"
+        "# when the next event on the club calendar is a short-reads week, and the\n"
+        "# articles come from that event's description - one per line with its link.\n\n"
+    )
+    body = yaml.safe_dump(
+        data, allow_unicode=True, sort_keys=False, default_flow_style=False
+    )
+    SHORT_YML.write_text(header + body, encoding="utf-8")
+
+
+def sync_short_reads(next_event):
+    """Switch the short-reads section on or off to match the next meeting."""
+    is_short, articles = short_reads_for(next_event)
+
+    if is_short and not articles:
+        log(
+            f"\n  ! '{next_event['title']}' looks like a short-reads week, but its "
+            "calendar description has no links in it. Leaving "
+            f"{SHORT_YML.name} alone rather than publishing an empty list - paste "
+            "the articles into the event's description."
+        )
+        return
+
+    if is_short:
+        write_short_reading(True, articles)
+        log(f"\nWrote {SHORT_YML.relative_to(REPO_ROOT)} - short reads ON:")
+        for article in articles:
+            log(f"  - {article['title']}")
+        return
+
+    existing = yaml.safe_load(SHORT_YML.read_text(encoding="utf-8")) or {}
+    if existing.get("enabled"):
+        write_short_reading(False, [])
+        log(
+            f"\nWrote {SHORT_YML.relative_to(REPO_ROOT)} - short reads OFF "
+            f"(next up is '{next_event['title']}'). The article list is kept."
+        )
+
+
 def main():
     if not ICS_URL:
         log("::notice::Calendar sync not configured yet - CALENDAR_ICS_URL is unset.")
@@ -190,28 +341,57 @@ def main():
     for event in upcoming:
         log(f"  {event['date']}  {event['title']}")
 
+    next_event = upcoming[0]
+    is_short, articles = short_reads_for(next_event)
+
     if DRY_RUN:
         log("\nDRY RUN - nothing written.")
         if UPDATE_CURRENT_READING:
-            match = PARENTHETICAL.search(upcoming[0]["title"])
-            when = upcoming[0]["date"]
-            log(
-                f"\nCurrently Reading would become:\n"
-                f"  current_date: {when.strftime('%B')} {ordinal(when.day)}, {when.year}\n"
-                f"  chapters:     {match.group(1).strip() if match else '(unchanged)'}"
-            )
+            if is_short:
+                log(
+                    "\nCurrently Reading would be left alone - the next meeting is a "
+                    "short-reads week, so that section is hidden anyway."
+                )
+            else:
+                match = PARENTHETICAL.search(next_event["title"])
+                when = next_event["date"]
+                log(
+                    f"\nCurrently Reading would become:\n"
+                    f"  current_date: {when.strftime('%B')} {ordinal(when.day)}, {when.year}\n"
+                    f"  chapters:     {match.group(1).strip() if match else '(unchanged)'}"
+                )
+        if UPDATE_SHORT_READS:
+            if is_short and articles:
+                log("\nShort reads would be switched ON, with:")
+                for article in articles:
+                    log(f"  - {article['title']}\n      {article['url']}")
+            elif is_short:
+                log(
+                    "\nShort reads: this looks like a short-reads week but the event "
+                    "description has no links, so nothing would change."
+                )
+            else:
+                log("\nShort reads would be switched OFF (next up is a book week).")
         return
 
     write_events(upcoming)
     log(f"\nWrote {EVENTS_YML.relative_to(REPO_ROOT)}")
 
-    if UPDATE_CURRENT_READING:
-        data = update_current_reading(upcoming[0])
+    if UPDATE_CURRENT_READING and not is_short:
+        data = update_current_reading(next_event)
         log(
             f"Wrote {CURRENT_YML.relative_to(REPO_ROOT)} "
             f"(chapters: \"{data.get('chapters', '')}\", "
             f"date: \"{data.get('current_date', '')}\")"
         )
+    elif UPDATE_CURRENT_READING:
+        log(
+            "Left current-reading.yml alone - the next meeting is a short-reads "
+            "week, so Currently Reading stays on the main book."
+        )
+
+    if UPDATE_SHORT_READS:
+        sync_short_reads(next_event)
 
 
 if __name__ == "__main__":

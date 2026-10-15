@@ -1,14 +1,14 @@
-# Short Reading Section
-# Set enabled to true to show this section, false to hide it
-enabled: false
+# GENERATED FILE - DO NOT EDIT BY HAND.
+#
+# Rewritten by .github/workflows/sync-calendar.yml. The section switches on
+# when the next event on the club calendar is a short-reads week, and the
+# articles come from that event's description - one per line with its link.
 
-# List of articles
+enabled: true
 articles:
-  - title: "Hell is the Absence of God by Ted Chiang (22 pages)"
-    url: "https://static1.squarespace.com/static/50e08e65e4b0c2f4976972df/t/588a2e70725e25b6981e64d1/1485450864394/Chiang+Hell+Is+the+Absence+of+God.pdf"
-
-  - title: "Kaho by Haruki Murakami (12 pages)"
-    url: "https://archive.is/4sLvf"
-
-  - title: "Hills Like White Elephants by Ernest Hemingway (17 pages)"
-    url: "https://www.rvclibrary.org/wp-content/uploads/2022/04/May-Short-Stories.pdf"
+- title: "Anthropology and The Abnormal by Ruth Benedict"
+  url: "https://users.manchester.edu/Facstaff/SSNaragon/Online/texts/201/Benedict,%20Anthropology.pdf"
+- title: "Perfect Vessels by Cesar Chávez"
+  url: "https://avaduvernay.substack.com/p/perfect-vessels"
+- title: "The World’s Dumbest Idea by James Montier"
+  url: "https://www.gmo.com/globalassets/articles/white-paper/2014/jm_the-worlds-dumbest-idea_12-14.pdf"

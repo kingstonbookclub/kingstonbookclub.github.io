@@ -6,6 +6,10 @@ name: Sync events from Google Calendar
 # The event title is used verbatim on the site, e.g.
 #   Crime and Punishment (Part 6 - first half)
 # and whatever is in parentheses becomes the chapters line.
+#
+# If the next event's title mentions "short form" or "short reads", the article
+# list is read from that event's description and the short-reads section is
+# switched on; it switches back off once a book week is next.
 
 on:
   schedule:
@@ -35,6 +39,8 @@ jobs:
       MAX_UPCOMING: "4"
       # Set to "false" to leave _data/current-reading.yml alone.
       UPDATE_CURRENT_READING: "true"
+      # Set to "false" to manage _data/short-reading.yml by hand instead.
+      UPDATE_SHORT_READS: "true"
       DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
 
     steps:
@@ -55,7 +61,7 @@ jobs:
         run: |
           git config user.name "KBC Calendar Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add _data/events.yml _data/current-reading.yml
+          git add _data/events.yml _data/current-reading.yml _data/short-reading.yml
           if git diff --staged --quiet; then
             echo "Events already up to date."
             exit 0
