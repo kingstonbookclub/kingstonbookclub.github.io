@@ -61,6 +61,10 @@ DRY_RUN = os.environ.get("DRY_RUN", "").lower() in ("1", "true", "yes")
 TZ = ZoneInfo("America/Jamaica")
 
 PARENTHETICAL = re.compile(r"\(([^)]+)\)")
+# "The Problem of Pain - Divine Goodness": everything after a spaced dash is the
+# chapters. Parentheses win when both are present, so "Crime and Punishment
+# (Part 6 - first half)" still yields "Part 6 - first half".
+DASHED = re.compile(r"\s+[-\u2013\u2014]\s+")
 
 # "Short-form Poetry Week", "Short Form Reads", "short reads". Requiring the
 # second word keeps a book like "A Short History of Nearly Everything" from
@@ -178,6 +182,15 @@ def write_events(events):
     EVENTS_YML.write_text(header + body, encoding="utf-8")
 
 
+def chapters_from(title):
+    """The part of an event title that names what to read, or "" if absent."""
+    match = PARENTHETICAL.search(title)
+    if match:
+        return match.group(1).strip()
+    parts = DASHED.split(title, maxsplit=1)
+    return parts[1].strip() if len(parts) > 1 else ""
+
+
 def update_current_reading(next_event):
     """Point Currently Reading at the next meeting, leaving the book alone."""
     data = yaml.safe_load(CURRENT_YML.read_text(encoding="utf-8")) or {}
@@ -187,12 +200,13 @@ def update_current_reading(next_event):
         f"{when.strftime('%B')} {ordinal(when.day)}, {when.year}"
     )
 
-    match = PARENTHETICAL.search(next_event["title"])
-    if match:
-        data["chapters"] = match.group(1).strip()
+    chapters = chapters_from(next_event["title"])
+    if chapters:
+        data["chapters"] = chapters
     else:
         log(
-            f"  ! '{next_event['title']}' has no (parentheses), so the chapters "
+            f"  ! '{next_event['title']}' has no (parentheses) and no ' - ', so "
+            f"the chapters "
             f"line stays as \"{data.get('chapters', '')}\". Edit it by hand if the "
             "next meeting covers something different."
         )
@@ -353,12 +367,12 @@ def main():
                     "short-reads week, so that section is hidden anyway."
                 )
             else:
-                match = PARENTHETICAL.search(next_event["title"])
+                chapters = chapters_from(next_event["title"])
                 when = next_event["date"]
                 log(
                     f"\nCurrently Reading would become:\n"
                     f"  current_date: {when.strftime('%B')} {ordinal(when.day)}, {when.year}\n"
-                    f"  chapters:     {match.group(1).strip() if match else '(unchanged)'}"
+                    f"  chapters:     {chapters or '(unchanged)'}"
                 )
         if UPDATE_SHORT_READS:
             if is_short and articles:
