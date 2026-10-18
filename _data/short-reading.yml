@@ -4,11 +4,11 @@
 # when the next event on the club calendar is a short-reads week, and the
 # articles come from that event's description - one per line with its link.
 
-enabled: true
+enabled: false
 articles:
-- title: "Anthropology and The Abnormal by Ruth Benedict"
-  url: "https://users.manchester.edu/Facstaff/SSNaragon/Online/texts/201/Benedict,%20Anthropology.pdf"
-- title: "Perfect Vessels by Cesar Chávez"
-  url: "https://avaduvernay.substack.com/p/perfect-vessels"
-- title: "The World’s Dumbest Idea by James Montier"
-  url: "https://www.gmo.com/globalassets/articles/white-paper/2014/jm_the-worlds-dumbest-idea_12-14.pdf"
+- title: Anthropology and The Abnormal by Ruth Benedict
+  url: https://users.manchester.edu/Facstaff/SSNaragon/Online/texts/201/Benedict,%20Anthropology.pdf
+- title: Perfect Vessels by Cesar Chávez
+  url: https://avaduvernay.substack.com/p/perfect-vessels
+- title: The World’s Dumbest Idea by James Montier
+  url: https://www.gmo.com/globalassets/articles/white-paper/2014/jm_the-worlds-dumbest-idea_12-14.pdf
