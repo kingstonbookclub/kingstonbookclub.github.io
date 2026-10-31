@@ -40,8 +40,9 @@ After expressing these doubts I got a lot of helpful feedback:
 
 - **Cut back if necessary.** While the structured nature of the meetings with our discussion questions does offer some augmentation, having free-form conversations every now and then won't kill anyone.
 - **2 people can make a book club.** The quantity of attendees is a secondary consideration compared to the importance of the content of our discussions.
-- **I can lean on some of you guys.** I got a lot of offers from our attendees to rely on them for tasks like question writing, which was hugely appreciated.
+- **I can lean on some of you guys.** I got a lot of offers from our attendees to rely on them for tasks like question writing, which was hugely appreciated. I also want to emphasize here how much I've appreciated the help of Kamari, who has gone above and beyond in leading this club and wearing many hats.
 - **I'm not holding anyone hostage.** While the rigour of our texts can act as a barrier it's also a useful filter to connect with people who find it important to pursue knowledge and expand their models of the world. Everyone is here voluntarily.
+- **No monthly meetings.** However tantalizing it might be to reduce our cadence as a cost-cutting effort, it's one of the strongest appeals of our group and a no-go zone for us. (online for some meetings is still on the table though)
 
 This gave me a lot of confidence in our core membership while reinforcing my conviction that yes, it is important that this is an enclave for the clinically inquisitive.
 
