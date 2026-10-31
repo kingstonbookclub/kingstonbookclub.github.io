@@ -10,9 +10,9 @@ excerpt: "The Problem of Pain, Chapters 2 & 3 at Deaf Can! Coffee — six attend
 
 *Location: Deaf Can! Coffee, New Kingston · Attendance: 6*
 
-For today's meeting we met at Deaf Can! Coffee in New Kingston to discuss the 2nd and 3rd chapters of *The Problem of Pain* by C.S. Lewis. The meeting started off pretty calmly with me going around asking everyone what they'd been reading and how they felt about the book.
+For today's meeting we met at Deaf Can! Coffee in New Kingston to discuss the 2nd and 3rd chapters of [*The Problem of Pain*](https://www.goodreads.com/book/show/53571518-the-problem-of-pain) by C.S. Lewis. The meeting started off pretty calmly with me going around asking everyone what they'd been reading and how they felt about the book.
 
-Curtis mentioned finishing up *The Empire of Illusion* by Chris Hedges — an anti-capitalist piece by his description of it. To continue the economic bit, he also expressed that reading of this book had a "crowding out" effect on his keeping up with our current text. Akeem shared that he'd recently read *The Code Breaker* by Walter Isaacson. You might find the author's name familiar as he's a prolific biographer of figures such as Ben Franklin, Steve Jobs and recently Elon Musk. This book's subject looked at the development of CRISPR-Cas9, a gene editing technology recently pioneered by Jennifer Doudna and Emmanuelle Charpentier, who were awarded the 2020 Nobel Prize in Chemistry for their discovery.
+Curtis mentioned finishing up [*The Empire of Illusion*](https://www.goodreads.com/book/show/6577631-empire-of-illusion) by Chris Hedges — an anti-capitalist piece by his description of it. To continue the economic bit, he also expressed that reading of this book had a "crowding out" effect on his keeping up with our current text. Akeem shared that he'd recently read [*The Code Breaker*](https://www.goodreads.com/book/show/54968118-the-code-breaker) by Walter Isaacson. You might find the author's name familiar as he's a prolific biographer of figures such as Ben Franklin, Steve Jobs and recently Elon Musk. This book's subject looked at the development of CRISPR-Cas9, a gene editing technology recently pioneered by Jennifer Doudna and Emmanuelle Charpentier, who were awarded the 2020 Nobel Prize in Chemistry for their discovery.
 
 We had 6 attendees today so the vibe was very intimate. The ambience was also conducive to our discussion — quiet surroundings, comfortable seating, excellent coffee, and really efficient staff. There was also a bookshelf in our area so the bookclub aesthetic got an extra "oomph". Our questions this week were written by Jevaughn and Joshua, and on the strength of the engagement levels during our discussion I'd give them a 5/5 for their efforts.
 
@@ -43,6 +43,7 @@ After expressing these doubts I got a lot of helpful feedback:
 - **I can lean on some of you guys.** I got a lot of offers from our attendees to rely on them for tasks like question writing, which was hugely appreciated. I also want to emphasize here how much I've appreciated the help of Kamari, who has gone above and beyond in leading this club and wearing many hats.
 - **I'm not holding anyone hostage.** While the rigour of our texts can act as a barrier it's also a useful filter to connect with people who find it important to pursue knowledge and expand their models of the world. Everyone is here voluntarily.
 - **No monthly meetings.** However tantalizing it might be to reduce our cadence as a cost-cutting effort, it's one of the strongest appeals of our group and a no-go zone for us. (online for some meetings is still on the table though)
+
 
 This gave me a lot of confidence in our core membership while reinforcing my conviction that yes, it is important that this is an enclave for the clinically inquisitive.
 
