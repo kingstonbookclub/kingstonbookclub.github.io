@@ -33,6 +33,7 @@
 
             <div class="blog-list">
                 {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+                {% assign posts_by_year = posts_by_year | sort: 'name' | reverse %}
                 
                 {% for year in posts_by_year %}
                 <button class="blog-year-toggle collapsed">
@@ -40,7 +41,7 @@
                     <span class="year-icon">+</span>
                 </button>
                 <div class="blog-year-content collapsed">
-                    {% assign sorted_posts = year.items | reverse %}
+                    {% assign sorted_posts = year.items | sort: 'date' | reverse %}
                     {% for post in sorted_posts %}
                     <div class="blog-item">
                         <span class="blog-icon">✦</span>

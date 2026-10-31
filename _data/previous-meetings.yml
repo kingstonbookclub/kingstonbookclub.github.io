@@ -6,6 +6,10 @@ year: 2026
 
 meetings:
 
+  - date: "OCT 31"
+    title: "The Problem of Pain, Chapters 2 & 3"
+    blog_url: "/blog/2026/10/31/meeting-recap-october-31"
+
   - date: "JUL 4"
     title: "Meeting #26 - Crime and Punishment, Part 2"
     blog_url: "/blog/2026/07/04/meeting-recap-july-04"
@@ -18,6 +22,3 @@ meetings:
     title: "Meeting #24 - Short-form Fiction Edition"
     blog_url: "/blog/2026/06/20/meeting-recap-june-20"
 
-  - date: "JUN 13"
-    title: "Meeting #23 - Men Who Hate Women, Chapters 9 & 10"
-    blog_url: "/blog/2026/06/13/meeting-recap-june-13"
