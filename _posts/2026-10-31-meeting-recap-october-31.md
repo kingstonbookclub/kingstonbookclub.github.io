@@ -47,4 +47,6 @@ After expressing these doubts I got a lot of helpful feedback:
 
 This gave me a lot of confidence in our core membership while reinforcing my conviction that yes, it is important that this is an enclave for the clinically inquisitive.
 
+Faith restored. Heart overwhelmed. My place is here. See you next Saturday.
+
 *&#42;For an overview of the club admin responsibilities see [this document](https://docs.google.com/document/d/e/2PACX-1vRXpX7kjye8ykuc6nFu6fhHXGaPWiqPU_7k4ivz4XxhuH2cW8-t3_vOGgD_YlF6mgFrNiHCns5qHChA/pub).*
