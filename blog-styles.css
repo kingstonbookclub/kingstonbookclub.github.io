@@ -365,6 +365,11 @@ body::after {
     margin-bottom: 0;
 }
 
+.blog-post-body ul,
+.blog-post-body ol {
+    margin-bottom: 35px;
+}
+
 @media (max-width: 768px) {
     .blog-post {
         padding: 0 30px 60px 30px;
